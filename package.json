@@ -2,18 +2,17 @@
   "name": "project-root",
   "private": true,
   "workspaces": [
-    "frontend",
     "backend"
   ],
   "scripts": {
     "prepare": "npx husky .husky",
-    "dev": "npm run dev:backend && npm run dev:frontend",
+    "dev": "npm run dev:backend",
     "dev:backend": "npm --workspace backend run dev",
-    "build": "npm run build:backend && npm run build:frontend",
+    "build": "npm run build:backend",
     "build:backend": "npm --workspace backend run build",
     "start:prod": "npm --workspace backend run start:prod",
-    "lint": "eslint backend/src frontend/src --ext .ts,.tsx,.js,.jsx",
-    "format": "prettier backend/src frontend/src --write"
+    "lint": "eslint backend/src --ext .ts,.tsx,.js,.jsx --config eslint.config.mts",
+    "format": "prettier backend/src --write"
   },
   "lint-staged": {
     "{frontend,backend}/src/**/*.{ts,tsx,js,jsx,json,css,md}": [
@@ -24,6 +23,7 @@
   "devDependencies": {
     "eslint": "9.35.0",
     "husky": "9.1.7",
+    "jiti": "2.5.1",
     "lint-staged": "16.1.6",
     "prettier": "3.6.2"
   }
