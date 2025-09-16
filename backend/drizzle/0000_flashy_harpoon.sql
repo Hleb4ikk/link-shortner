@@ -3,6 +3,6 @@ CREATE TABLE "users" (
 	"name" varchar(255),
 	"email" varchar(255) NOT NULL,
 	"hashed_password" varchar(255) NOT NULL,
-	"created_at" date DEFAULT now() NOT NULL,
-	"updated_at" date DEFAULT now() NOT NULL
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL
 );
