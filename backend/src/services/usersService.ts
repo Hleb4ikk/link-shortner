@@ -1,6 +1,7 @@
 import { db } from 'database/db';
 import { usersTable } from 'database/schemas/usersTable';
 import { eq } from 'drizzle-orm';
+import { InternalServerErrorException } from 'types/exceptions/HttpExceptions';
 import { CreateUserDto, UpdateUserDto } from 'types/users';
 import { encrypt } from 'utils/hash';
 
@@ -11,8 +12,8 @@ const getUserById = async (id: string) => {
       .from(usersTable)
       .where(eq(usersTable.id, id));
     return result[0];
-  } catch (error) {
-    console.error(error);
+  } catch {
+    throw new InternalServerErrorException('Failed to fetch user');
   }
 };
 
@@ -24,8 +25,8 @@ const createUser = async (user: CreateUserDto): Promise<string | undefined> => {
       .returning();
 
     return result[0].id;
-  } catch (error) {
-    console.error(error);
+  } catch {
+    throw new InternalServerErrorException('Failed to create user');
   }
 };
 
@@ -44,8 +45,8 @@ const updateUser = async (
       .where(eq(usersTable.id, id))
       .returning();
     return result[0].id;
-  } catch (error) {
-    console.error(error);
+  } catch {
+    throw new InternalServerErrorException('Failed to update user');
   }
 };
 
