@@ -5,22 +5,31 @@ import {
   IsOptional,
 } from 'class-validator';
 
-class CreateUserDto {
-  @IsString()
-  name: string;
-
+class RegisterDto {
   @IsEmail()
   email: string;
 
   @IsStrongPassword()
+  password: string;
+}
+
+class LoginDto {
+  @IsEmail()
+  email: string;
+
+  @IsString()
+  password: string;
+}
+
+class CreateUserDto {
+  @IsEmail()
+  email: string;
+
+  @IsString()
   password: string;
 }
 
 class UpdateUserDto {
-  @IsString()
-  @IsOptional()
-  name: string;
-
   @IsEmail()
   @IsOptional()
   email: string;
@@ -30,4 +39,4 @@ class UpdateUserDto {
   password: string;
 }
 
-export type { CreateUserDto, UpdateUserDto };
+export { RegisterDto, LoginDto, CreateUserDto, UpdateUserDto };

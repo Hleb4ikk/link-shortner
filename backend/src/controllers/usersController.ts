@@ -1,15 +1,13 @@
 import { Request, Response } from 'express';
-import { getUserById, updateUser } from 'services/usersService';
+import { updateUser } from 'services/usersService';
 
-const fetch = async (req: Request, res: Response) => {
-  const result = await getUserById(req.params.id);
-
-  res.json(result);
+const getMyProfileHandler = async (req: Request, res: Response) => {
+  res.json(req.user);
 };
 
-const update = async (req: Request, res: Response) => {
+const updateUserHandler = async (req: Request, res: Response) => {
   const result = await updateUser(req.params.id, req.body);
   res.json(result);
 };
 
-export { fetch, update };
+export { getMyProfileHandler, updateUserHandler };

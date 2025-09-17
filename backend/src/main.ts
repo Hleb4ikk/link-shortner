@@ -2,13 +2,28 @@ import express from 'express';
 import { appConfig } from 'configuration/appConfig';
 import { usersRoute } from 'routes/usersRoute';
 import errorHandler from 'errorHandler';
+import { authRoute } from 'routes/authRoute';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import { authGuard } from 'middlewares/authGuard';
+import './strategies/jwt-strategy';
+import passport from 'passport';
 
 const app = express();
 
+app.use(
+  cors({
+    origin: appConfig.clientUrl,
+    credentials: true,
+  }),
+);
+app.use(passport.initialize());
+
+app.use(cookieParser());
 app.use(express.json());
 
-app.use('/users', usersRoute);
-
+app.use('/users', authGuard, usersRoute);
+app.use('/auth', authRoute);
 app.use(errorHandler);
 
 app.listen(appConfig.appPort, (err) => {

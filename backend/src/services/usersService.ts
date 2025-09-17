@@ -17,6 +17,18 @@ const getUserById = async (id: string) => {
   }
 };
 
+const getUserByEmail = async (email: string) => {
+  try {
+    const result = await db
+      .select()
+      .from(usersTable)
+      .where(eq(usersTable.email, email));
+    return result[0];
+  } catch {
+    throw new InternalServerErrorException('Failed to fetch user');
+  }
+};
+
 const createUser = async (user: CreateUserDto): Promise<string | undefined> => {
   try {
     const result = await db
@@ -50,4 +62,4 @@ const updateUser = async (
   }
 };
 
-export { getUserById, createUser, updateUser };
+export { getUserById, getUserByEmail, createUser, updateUser };
