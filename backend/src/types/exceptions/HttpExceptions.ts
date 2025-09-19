@@ -35,6 +35,11 @@ export class MethodNotAllowedException extends HttpException {
     super(HttpStatus.METHOD_NOT_ALLOWED, 'Method Not Allowed', description);
   }
 }
+export class ConflictException extends HttpException {
+  constructor(description?: string) {
+    super(HttpStatus.CONFLICT, 'Conflict', description);
+  }
+}
 export class InternalServerErrorException extends HttpException {
   constructor(description?: string) {
     super(
