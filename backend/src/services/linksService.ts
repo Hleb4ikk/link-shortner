@@ -1,0 +1,82 @@
+import { plainToInstance } from 'class-transformer';
+import { validate } from 'class-validator';
+import { attempts } from 'constants/base-58-generator-settings';
+import { db } from 'database/db';
+import { linksTable } from 'database/schemas/linksTable';
+import { eq } from 'drizzle-orm';
+import {
+  BadRequestException,
+  InternalServerErrorException,
+  NotFoundException,
+} from 'types/exceptions/HttpExceptions';
+import { LinkDto } from 'types/LinkDto';
+import { generateShortId } from 'utils/generate-shortId';
+
+const getLinkByShortId = async (shortId: string) => {
+  let link;
+
+  try {
+    link = (
+      await db
+        .select()
+        .from(linksTable)
+        .where(eq(linksTable.shortLinkId, shortId))
+    )[0];
+  } catch {
+    throw new InternalServerErrorException('Failed to fetch link');
+  }
+  if (!link) {
+    throw new NotFoundException('Link is not found');
+  }
+  return link;
+};
+
+const createLink = async (link: unknown, userId: string) => {
+  const linkDto = plainToInstance(LinkDto, link);
+  const errors = await validate(linkDto);
+
+  if (errors.length > 0) {
+    throw new BadRequestException('Invalid data');
+  }
+
+  let shortId;
+  let counter = attempts;
+
+  while (counter > 0) {
+    const id = generateShortId();
+    try {
+      const link = (
+        await db.select().from(linksTable).where(eq(linksTable.shortLinkId, id))
+      )[0];
+
+      if (!link) {
+        shortId = id;
+        console.log(shortId);
+        break;
+      }
+    } catch {
+      throw new InternalServerErrorException(
+        'Failed to check shortId on existing',
+      );
+    }
+
+    counter--;
+  }
+
+  if (!shortId) {
+    throw new InternalServerErrorException('Failed to generate shortId.');
+  }
+
+  try {
+    await db.insert(linksTable).values({
+      ownerId: userId,
+      shortLinkId: shortId,
+      url: linkDto.url,
+    });
+    return shortId;
+  } catch {
+    throw new InternalServerErrorException('Failed to create short link');
+  }
+};
+
+export { getLinkByShortId, createLink };

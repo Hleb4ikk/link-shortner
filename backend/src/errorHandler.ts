@@ -13,7 +13,6 @@ export default function errorHandler(
   const error = !(err instanceof HttpException)
     ? new InternalServerErrorException(err.message)
     : err;
-
   res.status(error.statusCode).json({
     statusCode: error.statusCode,
     message: error.message,
