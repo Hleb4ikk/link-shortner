@@ -8,8 +8,8 @@ import { authGuard } from 'middlewares/authGuard';
 
 const linksRoute = express.Router();
 
-linksRoute.post('/links', authGuard, createLinkHandler);
-linksRoute.get('/links', authGuard, getAllUserLinksHandler);
+linksRoute.post('/', authGuard, createLinkHandler);
+linksRoute.get('/', authGuard, getAllUserLinksHandler);
 linksRoute.get('/:linkId', getLinkHandler);
 
 export { linksRoute };

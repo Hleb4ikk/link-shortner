@@ -15,6 +15,13 @@
       "when": 1758261522656,
       "tag": "0001_adorable_bullseye",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1758728863315,
+      "tag": "0002_magenta_exodus",
+      "breakpoints": true
     }
   ]
 }

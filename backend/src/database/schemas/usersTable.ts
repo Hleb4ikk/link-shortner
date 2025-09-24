@@ -1,6 +1,4 @@
-import { relations } from 'drizzle-orm';
 import * as p from 'drizzle-orm/pg-core';
-import { linksTable } from './linksTable';
 
 const usersTable = p.pgTable('users', {
   id: p.uuid('id').primaryKey().defaultRandom(),
@@ -10,8 +8,4 @@ const usersTable = p.pgTable('users', {
   updatedAt: p.timestamp('updated_at').defaultNow().notNull(),
 });
 
-const usersRelations = relations(usersTable, ({ many }) => ({
-  links: many(linksTable),
-}));
-
-export { usersTable, usersRelations };
+export { usersTable };

@@ -1,6 +1,5 @@
 import * as p from 'drizzle-orm/pg-core';
 import { usersTable } from './usersTable';
-import { relations } from 'drizzle-orm';
 
 const linksTable = p.pgTable('links', {
   id: p.uuid('id').primaryKey().defaultRandom(),
@@ -13,10 +12,4 @@ const linksTable = p.pgTable('links', {
   createdAt: p.timestamp('created_at').defaultNow().notNull(),
 });
 
-const linksRelations = relations(linksTable, ({ one }) => ({
-  owner: one(usersTable, {
-    fields: [linksTable.ownerId],
-    references: [usersTable.id],
-  }),
-}));
-export { linksTable, linksRelations };
+export { linksTable };
