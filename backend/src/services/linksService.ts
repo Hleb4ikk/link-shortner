@@ -12,6 +12,19 @@ import {
 import { LinkDto } from 'types/LinkDto';
 import { generateShortId } from 'utils/generate-shortId';
 
+const getAllUserLinks = async (userId: string) => {
+  let links;
+  try {
+    links = await db
+      .select()
+      .from(linksTable)
+      .where(eq(linksTable.ownerId, userId));
+  } catch {
+    throw new InternalServerErrorException('Failed to fetch links');
+  }
+  return links;
+};
+
 const getLinkByShortId = async (shortId: string) => {
   let link;
 
@@ -51,7 +64,6 @@ const createLink = async (link: unknown, userId: string) => {
 
       if (!link) {
         shortId = id;
-        console.log(shortId);
         break;
       }
     } catch {
@@ -79,4 +91,4 @@ const createLink = async (link: unknown, userId: string) => {
   }
 };
 
-export { getLinkByShortId, createLink };
+export { getLinkByShortId, createLink, getAllUserLinks };

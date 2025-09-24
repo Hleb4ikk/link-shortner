@@ -25,7 +25,7 @@ app.use(express.json());
 
 app.use('/users', authGuard, usersRoute);
 app.use('/auth', authRoute);
-app.use('/links', linksRoute);
+app.use('/', linksRoute);
 app.use(errorHandler);
 
 app.listen(appConfig.appPort, (err) => {
