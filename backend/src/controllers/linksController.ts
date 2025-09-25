@@ -1,5 +1,6 @@
 import { slugName } from 'constants/links-constants';
 import { Request, Response } from 'express';
+import { createAudience } from 'services/audienceService';
 import {
   createLink,
   getAllUserLinks,
@@ -10,7 +11,12 @@ const getLinkHandler = async (req: Request, res: Response) => {
   const shortId = req.params[slugName];
 
   const link = await getLinkByShortId(shortId);
-
+  console.log(req.socket.remoteAddress);
+  await createAudience({
+    linkId: link.id,
+    ip: req.ip,
+    userAgent: req.headers['user-agent'],
+  });
   res.redirect(link.url);
 };
 
