@@ -1,4 +1,4 @@
-import { binary_to_base58 } from 'base58-js';
+import bs58 from 'bs58';
 import { convertNumberToBytes } from './bytes-convert-options';
 import {
   endBase58Boundary,
@@ -6,7 +6,7 @@ import {
 } from 'constants/base-58-generator-settings';
 
 export function generateShortId() {
-  return binary_to_base58(
+  return bs58.encode(
     convertNumberToBytes(
       Math.trunc(Math.random() * (endBase58Boundary - startBase58Boundary)) +
         startBase58Boundary,
