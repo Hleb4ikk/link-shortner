@@ -14,7 +14,7 @@ const getLinkHandler = async (req: Request, res: Response) => {
   console.log(req.socket.remoteAddress);
   await createAudience({
     linkId: link.id,
-    ip: req.ip,
+    ip: req.socket.remoteAddress,
     userAgent: req.headers['user-agent'],
   });
   res.redirect(link.url);
