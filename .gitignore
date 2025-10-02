@@ -10,3 +10,9 @@
 # build
 /frontend/dist
 /backend/dist
+
+# production
+/frontend/build
+
+# local variables
+/frontend/.env
