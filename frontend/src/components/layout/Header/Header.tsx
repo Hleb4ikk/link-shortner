@@ -1,26 +1,41 @@
+import {
+  NavigationItem,
+  NavigationMenu,
+} from '../../shared/NavigationMenu/NavigationMenu';
 import styles from './Header.module.css';
-import { Link } from 'react-router-dom';
+import Logo from '../../shared/Logo/Logo';
+import { Sun } from 'lucide-react';
+import Button from '../../shared/Button/Button';
 
 const menuItems = [
   {
     text: 'Home',
     path: '/',
   },
+  {
+    text: 'Links',
+    path: '/links',
+  },
 ];
 
 export default function Header() {
   return (
-    <header className={styles.header}>
-      <img src="awd" alt="12" />
-      <nav>
-        <ul className={styles.navigationList}>
+    <div className={styles.headerContainer}>
+      <header className={styles.header}>
+        <Logo />
+        <NavigationMenu>
           {menuItems.map((item) => (
-            <li>
-              <Link to={item.path}>{item.text}</Link>
-            </li>
+            <NavigationItem to={item.path}>{item.text}</NavigationItem>
           ))}
-        </ul>
-      </nav>
-    </header>
+        </NavigationMenu>
+        <div className={styles.usersMenu}>
+          <Button className={styles.themeSwitcher}>
+            <Sun className={styles.icon} />
+          </Button>
+          <Button>Login</Button>
+          <Button className={styles.signUpButton}>Sign Up</Button>
+        </div>
+      </header>
+    </div>
   );
 }

@@ -1,0 +1,178 @@
+.section {
+  padding-top: 100px !important;
+  padding-bottom: 100px !important;
+  margin: 0 auto;
+  padding: 7px 20px;
+  max-width: 1440px;
+  color: var(--text-color-1);
+}
+.shortenSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 1000px;
+  width: 700px;
+  gap: 30px;
+}
+.shortenSectionContainer {
+  background-color: var(--color-section);
+  border-bottom: 1px solid var(--border-color);
+}
+.infoSection {
+  min-height: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.infoSectionContainer {
+  border-bottom: 1px solid var(--border-color);
+}
+.slogan {
+  text-align: center;
+  font-size: 4rem;
+  width: 500px;
+  color: var(--text-color-1);
+}
+.sloganSecondPart {
+  color: rgb(var(--primary-color));
+}
+.sloganDescription {
+  width: 650px;
+  text-align: center;
+  font-size: 1.25rem;
+  color: var(--text-color-2);
+}
+.shortenInput {
+  padding: 25px 12px !important;
+  font-size: 0.875rem;
+}
+.shortenContainer {
+  display: flex;
+  white-space: nowrap;
+  width: 100%;
+  gap: 10px;
+}
+
+.shortenButton,
+.shortenButton:hover {
+  background-color: rgb(var(--primary-color)) !important;
+  color: var(--text-color-4) !important;
+}
+.boastingContainer {
+  font-size: 0.875rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-color-2);
+}
+
+.boasting {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.boasting:not(:last-child)::after {
+  content: '|';
+  color: var(--border-color);
+  margin: 0 60px;
+}
+.infoSectionDescription {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+.sectionHeader {
+  color: var(--text-color-1);
+  font-weight: 600;
+}
+.sectionDescription {
+  color: var(--text-color-2);
+  text-align: center;
+  font-size: 1.25rem;
+  width: 700px;
+}
+
+/*card*/
+
+.featureIconContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(var(--primary-color), 0.2);
+}
+.icon {
+  color: rgb(var(--primary-colorf));
+  opacity: 200%;
+}
+.featuresContainer {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+.feature {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+}
+.feature:hover {
+  background-color: var(--hovered-card-color);
+}
+.featureIcon {
+  color: rgb(var(--primary-color));
+}
+.statisticsSectionContainer {
+  background-color: var(--color-section);
+  border-bottom: 1px solid var(--border-color);
+}
+.statisticsSection {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  width: 100%;
+  place-items: center;
+}
+.dataBlock {
+  text-align: center;
+}
+.dataBlockHeader {
+  color: rgb(var(--primary-color));
+  font-size: 3rem;
+}
+.finalSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+.finalSectionHeader {
+  font-size: 3rem;
+}
+.finalSectionDescription {
+  color: var(--text-color-2);
+  font-size: 1.25rem;
+}
+.startButton {
+  background-color: rgb(var(--primary-color)) !important;
+  color: var(--text-color-4) !important;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.buttonsContainer {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  gap: 20px;
+}
+.pricingButton {
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 1px solid var(--border-color);
+}
