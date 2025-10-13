@@ -1,0 +1,31 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1440px;
+  padding: 7px 20px;
+  margin: 0 auto;
+  height: 50px;
+}
+.headerContainer {
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+}
+.usersMenu {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  height: 100%;
+}
+.themeSwitcher {
+  width: 36px !important;
+  padding: 0px 0px !important;
+}
+.icon {
+  width: 26px;
+}
+.signUpButton,
+.signUpButton:hover {
+  background-color: rgb(var(--primary-color)) !important;
+  color: var(--text-color-4) !important;
+}
