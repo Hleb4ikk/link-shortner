@@ -1,0 +1,109 @@
+.section {
+  margin: 0 auto;
+  padding: 0 20px;
+  padding-top: 20px;
+  max-width: 1440px;
+  color: var(--text-color-1);
+}
+.createLinkButton,
+.createLinkButton:hover {
+  background-color: rgb(var(--primary-color));
+  color: var(--text-color-4);
+  height: 40px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  white-space: nowrap;
+}
+.managementSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.plus {
+  width: 18px;
+}
+.search {
+  padding: 20px 10px;
+  padding-left: 38px;
+  font-size: 15px;
+}
+
+.searchSection {
+}
+
+.searchContainer {
+  max-width: 500px;
+  height: 42px;
+}
+.searchIcon {
+  position: relative;
+  color: var(--placeholder-color);
+  width: 18px;
+  top: -33px;
+  left: 10px;
+}
+
+.sectionHeader {
+  font-weight: 600;
+}
+.sectionDescription {
+  color: var(--text-color-2);
+}
+.sectionDescriptionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.linksSection {
+}
+.linkHeader {
+  font-size: 1.725rem;
+  font-weight: 500;
+}
+.link {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+}
+.link:hover {
+  background-color: var(--hovered-card-color);
+}
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.clicksContainer {
+  text-align: center;
+}
+.actionButton {
+  padding: 10px;
+  height: 36px;
+  width: 36px;
+}
+.actionButton:hover {
+  background-color: var(--hovered-button-color);
+}
+.linkInfoContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.copyButton {
+  padding: 10px;
+  width: 36px;
+  height: 36px;
+}
+.copyButton:hover {
+  background-color: var(--hovered-button-color);
+}
+.shortLink {
+  color: rgb(var(--primary-color));
+  border-radius: 5px;
+  padding: 8.5px 10px;
+  background-color: rgba(var(--primary-color), 0.2);
+}
