@@ -107,3 +107,34 @@
   padding: 8.5px 10px;
   background-color: rgba(var(--primary-color), 0.2);
 }
+
+/* Card */
+.formHeader {
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+.formDescription {
+  color: var(--text-color-2);
+}
+
+.submitButton,
+.submitButton:hover {
+  color: var(--text-color-4);
+  background-color: rgb(var(--primary-color));
+  height: 40px;
+  width: 100%;
+}
+.createLinkForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.formField {
+  width: 400px;
+  padding: 20px 10px;
+  font-size: 15px;
+}
+.formFieldLabel {
+  font-weight: 500;
+  font-size: 0.925rem;
+}

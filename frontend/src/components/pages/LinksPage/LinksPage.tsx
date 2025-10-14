@@ -9,6 +9,12 @@ import {
 import styles from './LinksPage.module.css';
 import Button from '../../shared/Button/Button';
 import Input from '../../shared/Input/Input';
+import {
+  AlertRoot,
+  AlertFooter,
+  AlertContent,
+  AlertHeader,
+} from '../../shared/Alert/Alert';
 
 export default function LinksPage() {
   return (
@@ -21,10 +27,46 @@ export default function LinksPage() {
               Manage and track all your shortened links
             </p>
           </div>
-          <Button className={`${styles.createLinkButton}`}>
-            <Plus className={styles.plus} />
-            Create Short Link
-          </Button>
+          <AlertRoot
+            alertTrigger={
+              <Button className={`${styles.createLinkButton}`}>
+                <Plus className={styles.plus} />
+                Create Short Link
+              </Button>
+            }
+            className={styles.alert}
+          >
+            <AlertHeader>
+              <h1 className={styles.formHeader}>Create Short Link</h1>
+              <p className={styles.formDescription}>
+                Enter the URL you want to shorten and give it a title
+              </p>
+            </AlertHeader>
+
+            <AlertContent>
+              <form className={styles.createLinkForm} action="">
+                <label className={styles.formFieldLabel} htmlFor="title">
+                  Original Link
+                </label>
+                <Input
+                  placeholder="https://example.com/long-url"
+                  className={styles.formField}
+                  id="title"
+                />
+                <label className={styles.formFieldLabel} htmlFor="url">
+                  Title
+                </label>
+                <Input
+                  placeholder="My Campaign Link"
+                  className={styles.formField}
+                  id="url"
+                ></Input>
+              </form>
+            </AlertContent>
+            <AlertFooter>
+              <Button className={styles.submitButton}>Create Link</Button>
+            </AlertFooter>
+          </AlertRoot>
         </section>
         <section className={`${styles.section} ${styles.searchSection}`}>
           <div className={`${styles.searchContainer}`}>
