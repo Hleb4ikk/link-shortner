@@ -57,21 +57,7 @@
 }
 .linksSection {
 }
-.linkHeader {
-  font-size: 1.725rem;
-  font-weight: 500;
-}
-.link {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 20px;
-  border-radius: 10px;
-  border: 1px solid var(--border-color);
-}
-.link:hover {
-  background-color: var(--hovered-card-color);
-}
+
 .actions {
   display: flex;
   align-items: center;

@@ -81,16 +81,26 @@ const AlertRoot = ({
       </AlertTrigger>
       {isOpen && (
         <Overlay closeCallback={() => setIsOpen(false)} className={className}>
-          <Alert>{children}</Alert>
-          <CloseAlertButton closeCallback={() => setIsOpen(false)} />
+          <Alert closeCallback={() => setIsOpen(false)}> {children}</Alert>
         </Overlay>
       )}
     </>
   );
 };
 
-const Alert = ({ children }: { children: React.ReactNode }) => {
-  return <div className={styles.alert}>{children}</div>;
+const Alert = ({
+  children,
+  closeCallback,
+}: {
+  children: React.ReactNode;
+  closeCallback: () => void;
+}) => {
+  return (
+    <div className={styles.alert}>
+      <CloseAlertButton closeCallback={closeCallback} />
+      {children}
+    </div>
+  );
 };
 
 const AlertHeader = ({
