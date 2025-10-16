@@ -23,22 +23,26 @@ export default function AuthForm({
   const buttonVariant = authType === 'login' ? 'Sign In' : 'Create Account';
 
   return (
-    <Form className={`${className} ${styles.authForm}`} {...props}>
-      <Label htmlFor="email">Email</Label>
-      <Input
-        id="email"
-        className={styles.formField}
-        placeholder="you@example.com"
-        {...register('email')}
-      />
-      <Label htmlFor="password">Password</Label>
-      <Input
-        id="password"
-        type="password"
-        className={styles.formField}
-        placeholder="Please enter password..."
-        {...register('password')}
-      />
+    <Form className={`${styles.authForm} ${className} `} {...props}>
+      <div className={styles.formItem}>
+        <Label htmlFor="email">Email</Label>
+        <Input
+          id="email"
+          className={styles.formField}
+          placeholder="you@example.com"
+          {...register('email')}
+        />
+      </div>
+      <div className={styles.formItem}>
+        <Label htmlFor="password">Password</Label>
+        <Input
+          id="password"
+          type="password"
+          className={styles.formField}
+          placeholder="Please enter password..."
+          {...register('password')}
+        />
+      </div>
       <PrimaryButton className={styles.submitButton}>
         {buttonVariant}
       </PrimaryButton>

@@ -5,3 +5,6 @@
 .formDescription {
   color: var(--text-color-2);
 }
+.alertContent {
+  gap: 100px;
+}

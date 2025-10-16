@@ -1,7 +1,12 @@
 .authForm {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 30px;
+}
+.formItem {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 .formField {
   width: 400px !important;

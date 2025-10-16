@@ -11,6 +11,7 @@ import Button from '../../../shared/Button/Button';
 import PrimaryButton from '../../../shared/Button/PrimaryButton';
 import { AuthType } from '../types';
 import AuthForm from '../AuthForm/AuthForm';
+import { Tabs, TabsList, TabsTrigger } from '../../../shared/Tabs/Tabs';
 
 export default function AuthAlert() {
   const [tab, setTab] = useState<AuthType>('login');
@@ -24,7 +25,7 @@ export default function AuthAlert() {
     setTab(tab);
     setOpen(true);
   }
-  const variant = tab === 'signup' ? 'Sign Up' : 'Log In';
+  const variant = tab === 'login' ? 'Log In' : 'Sign Up';
 
   return (
     <>
@@ -36,7 +37,7 @@ export default function AuthAlert() {
         Login
       </Button>
       <PrimaryButton
-        onClick={() => handleOpen('signup')}
+        onClick={() => handleOpen('register')}
         className={styles.signUpButton}
       >
         Sign Up
@@ -51,7 +52,18 @@ export default function AuthAlert() {
           </p>
         </AlertHeader>
 
-        <AlertContent>
+        <AlertContent className={styles.alertContent}>
+          <Tabs
+            onChange={(value: string) => {
+              setTab(value as AuthType);
+            }}
+            defaultValue={tab}
+          >
+            <TabsList>
+              <TabsTrigger value="login">Login</TabsTrigger>
+              <TabsTrigger value="register">Register</TabsTrigger>
+            </TabsList>
+          </Tabs>
           <AuthForm authType={tab} />
         </AlertContent>
       </AlertRoot>
