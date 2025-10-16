@@ -15,6 +15,12 @@ import {
   AlertContent,
   AlertHeader,
 } from '../../shared/Alert/Alert';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from '../../shared/Card/Card';
 
 export default function LinksPage() {
   return (
@@ -76,42 +82,50 @@ export default function LinksPage() {
         </section>
 
         <section className={`${styles.section} ${styles.linksSection}`}>
-          <article className={styles.link}>
-            <h1 className={styles.linkHeader}>Marketing Campaign 2024</h1>
-            <div className={styles.linkInfoContainer}>
-              <span className={styles.shortLink}>lnk.ly/abc123</span>
-              <Button className={styles.copyButton}>
-                <Copy style={{ color: 'var(--text-color-2)' }} />
-              </Button>
-            </div>
-            <div className={styles.linkInfoContainer}>
-              <SquareArrowOutUpRight
-                style={{ width: '12px', color: 'var(--text-color-2)' }}
-              />
-              <a
-                className={styles.fullUrl}
-                href="https://example.com/very-long-url-that-needs-to-be-shortened"
-              >
-                https://example.com/very-long-url-that-needs-to-be-shortened
-              </a>
-            </div>
-            <div className={styles.actions}>
-              <div className={styles.clicksContainer}>
-                <h2>1234</h2>
-                <span
-                  style={{ fontSize: '0.875rem', color: 'var(--text-color-2)' }}
-                >
-                  Clicks
-                </span>
+          <Card>
+            <CardHeader>Marketing Campaign 2024</CardHeader>
+            <CardContent>
+              <div className={styles.linkInfoContainer}>
+                <span className={styles.shortLink}>lnk.ly/abc123</span>
+                <Button className={styles.copyButton}>
+                  <Copy style={{ color: 'var(--text-color-2)' }} />
+                </Button>
               </div>
-              <Button className={styles.actionButton}>
-                <ChartColumn className={styles.actionIcon} />
-              </Button>
-              <Button className={styles.actionButton}>
-                <Trash className={styles.actionIcon} />
-              </Button>
-            </div>
-          </article>
+              <div className={styles.linkInfoContainer}>
+                <SquareArrowOutUpRight
+                  style={{ width: '12px', color: 'var(--text-color-2)' }}
+                />
+                <a
+                  className={styles.fullUrl}
+                  href="https://example.com/very-long-url-that-needs-to-be-shortened"
+                >
+                  https://example.com/very-long-url-that-needs-to-be-shortened
+                </a>
+              </div>
+            </CardContent>
+            <CardFooter>
+              {' '}
+              <div className={styles.actions}>
+                <div className={styles.clicksContainer}>
+                  <h2>1234</h2>
+                  <span
+                    style={{
+                      fontSize: '0.875rem',
+                      color: 'var(--text-color-2)',
+                    }}
+                  >
+                    Clicks
+                  </span>
+                </div>
+                <Button className={styles.actionButton}>
+                  <ChartColumn className={styles.actionIcon} />
+                </Button>
+                <Button className={styles.actionButton}>
+                  <Trash className={styles.actionIcon} />
+                </Button>
+              </div>
+            </CardFooter>
+          </Card>
         </section>
       </div>
     </>

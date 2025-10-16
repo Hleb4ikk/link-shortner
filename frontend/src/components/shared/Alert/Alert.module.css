@@ -14,6 +14,7 @@
 }
 
 .alert {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -39,9 +40,9 @@
 }
 
 .closeButton {
-  position: relative;
-  left: -50px;
-  top: -150px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
   padding: 8px;
   width: 36px;
   height: 36px;
