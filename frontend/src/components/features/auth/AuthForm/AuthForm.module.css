@@ -1,0 +1,14 @@
+.authForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.formField {
+  width: 400px !important;
+}
+
+.submitButton,
+.submitButton:hover {
+  height: 40px;
+  width: 100%;
+}

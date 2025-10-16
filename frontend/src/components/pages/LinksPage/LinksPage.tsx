@@ -21,6 +21,9 @@ import {
   CardFooter,
   CardHeader,
 } from '../../shared/Card/Card';
+import Label from '../../shared/Label/Label';
+import PrimaryButton from '../../shared/Button/PrimaryButton';
+import Form from '../../shared/Form/Form';
 
 export default function LinksPage() {
   return (
@@ -35,12 +38,11 @@ export default function LinksPage() {
           </div>
           <AlertRoot
             alertTrigger={
-              <Button className={`${styles.createLinkButton}`}>
+              <PrimaryButton className={`${styles.createLinkButton}`}>
                 <Plus className={styles.plus} />
                 Create Short Link
-              </Button>
+              </PrimaryButton>
             }
-            className={styles.alert}
           >
             <AlertHeader>
               <h1 className={styles.formHeader}>Create Short Link</h1>
@@ -50,27 +52,25 @@ export default function LinksPage() {
             </AlertHeader>
 
             <AlertContent>
-              <form className={styles.createLinkForm} action="">
-                <label className={styles.formFieldLabel} htmlFor="title">
-                  Original Link
-                </label>
+              <Form>
+                <Label htmlFor="title">Original Link</Label>
                 <Input
                   placeholder="https://example.com/long-url"
                   className={styles.formField}
                   id="title"
                 />
-                <label className={styles.formFieldLabel} htmlFor="url">
-                  Title
-                </label>
+                <Label htmlFor="url">Title</Label>
                 <Input
                   placeholder="My Campaign Link"
                   className={styles.formField}
                   id="url"
                 ></Input>
-              </form>
+              </Form>
             </AlertContent>
             <AlertFooter>
-              <Button className={styles.submitButton}>Create Link</Button>
+              <PrimaryButton className={styles.submitButton}>
+                Create Link
+              </PrimaryButton>
             </AlertFooter>
           </AlertRoot>
         </section>
@@ -104,7 +104,6 @@ export default function LinksPage() {
               </div>
             </CardContent>
             <CardFooter>
-              {' '}
               <div className={styles.actions}>
                 <div className={styles.clicksContainer}>
                   <h2>1234</h2>

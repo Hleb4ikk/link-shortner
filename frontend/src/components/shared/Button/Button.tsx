@@ -16,3 +16,4 @@ const Button = ({ className, children, ...props }: ButtonProps) => {
 };
 
 export default Button;
+export { type ButtonProps };

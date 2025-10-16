@@ -10,6 +10,7 @@ import {
   Users,
   Zap,
 } from 'lucide-react';
+import PrimaryButton from '../../shared/Button/PrimaryButton';
 
 export default function HomePage() {
   return (
@@ -29,9 +30,9 @@ export default function HomePage() {
               className={styles.shortenInput}
               placeholder="Input your long url here..."
             />
-            <Button className={styles.shortenButton}>
+            <PrimaryButton className={styles.shortenButton}>
               Shorten now <ArrowRight />
-            </Button>
+            </PrimaryButton>
           </div>
           <div className={styles.boastingContainer}>
             <div className={styles.boasting}>
@@ -147,9 +148,9 @@ export default function HomePage() {
             needs. Start for free today.
           </p>
           <div className={styles.buttonsContainer}>
-            <Button className={styles.startButton}>
+            <PrimaryButton className={styles.startButton}>
               Get Started Free <ArrowRight />
-            </Button>
+            </PrimaryButton>
             <Button className={styles.pricingButton}>View Pricing</Button>
           </div>
           <div className={styles.boastingContainer}>

@@ -54,11 +54,6 @@
   gap: 10px;
 }
 
-.shortenButton,
-.shortenButton:hover {
-  background-color: rgb(var(--primary-color)) !important;
-  color: var(--text-color-4) !important;
-}
 .boastingContainer {
   font-size: 0.875rem;
   display: flex;
@@ -160,8 +155,6 @@
   font-size: 1.25rem;
 }
 .startButton {
-  background-color: rgb(var(--primary-color)) !important;
-  color: var(--text-color-4) !important;
   padding-left: 20px;
   padding-right: 20px;
 }
