@@ -21,7 +21,7 @@ const getLinkHandler = async (req: Request, res: Response) => {
   console.log('Forwarded-For: ', req.headers['Forwarded-For']);
   console.log('Forwarded: ', req.headers['Forwarded']);
   console.log('appengine-user-ip: ', req.headers['appengine-user-ip']);
-  console.log('X-Cluster-Client-IP: ', req.connection.remoteAddress);
+  console.log('req.connection.remoteAddress: ', req.connection.remoteAddress);
   console.log('Cf-Pseudo-IPv4: ', req.headers['Cf-Pseudo-IPv4']);
   console.log(req.socket.remoteAddress);
 
