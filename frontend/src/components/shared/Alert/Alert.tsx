@@ -1,8 +1,14 @@
 import styles from './Alert.module.css';
 
-import { cloneElement, isValidElement, useEffect, useState } from 'react';
+import React, {
+  cloneElement,
+  isValidElement,
+  useEffect,
+  useState,
+} from 'react';
 import Button from '../Button/Button';
 import { X } from 'lucide-react';
+import { createPortal } from 'react-dom';
 
 type AlertTriggerProps = {
   children: React.ReactNode;
@@ -47,17 +53,30 @@ const Overlay = ({
     </div>
   );
 };
+type AlertRootProps =
+  | {
+      children: React.ReactNode;
+      alertTrigger: React.ReactNode;
+      handleClose?: null;
+      open?: null;
+      className?: string;
+    }
+  | {
+      children: React.ReactNode;
+      alertTrigger?: null;
+      handleClose: () => void;
+      open: boolean;
+      className?: string;
+    };
 
 const AlertRoot = ({
   children,
   alertTrigger,
+  handleClose,
+  open = false,
   className,
-}: {
-  children: React.ReactNode;
-  alertTrigger: React.ReactNode;
-  className?: string;
-}) => {
-  const [isOpen, setIsOpen] = useState(false);
+}: AlertRootProps) => {
+  const [isOpen, setIsOpen] = useState(open);
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : '';
@@ -65,25 +84,39 @@ const AlertRoot = ({
     function onEscapeDown(event: KeyboardEvent) {
       if (event.key === 'Escape') {
         setIsOpen(false);
+        if (handleClose) {
+          handleClose();
+        }
       }
     }
     if (isOpen) {
       document.addEventListener('keydown', onEscapeDown);
     } else {
       document.removeEventListener('keydown', onEscapeDown);
+      if (handleClose) {
+        handleClose();
+      }
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    setIsOpen(open);
+  }, [open]);
+
   return (
     <>
-      <AlertTrigger onClick={() => setIsOpen(true)} asChild>
-        {alertTrigger}
-      </AlertTrigger>
-      {isOpen && (
-        <Overlay closeCallback={() => setIsOpen(false)} className={className}>
-          <Alert closeCallback={() => setIsOpen(false)}> {children}</Alert>
-        </Overlay>
+      {alertTrigger && (
+        <AlertTrigger onClick={() => setIsOpen(true)} asChild>
+          {alertTrigger}
+        </AlertTrigger>
       )}
+      {isOpen &&
+        createPortal(
+          <Overlay closeCallback={() => setIsOpen(false)} className={className}>
+            <Alert closeCallback={() => setIsOpen(false)}> {children}</Alert>
+          </Overlay>,
+          document.body,
+        )}
     </>
   );
 };

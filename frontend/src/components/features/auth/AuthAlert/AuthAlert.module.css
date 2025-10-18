@@ -1,0 +1,10 @@
+.formHeader {
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+.formDescription {
+  color: var(--text-color-2);
+}
+.alertContent {
+  gap: 100px;
+}

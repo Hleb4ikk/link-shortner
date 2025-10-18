@@ -7,7 +7,6 @@
   width: 100%;
   opacity: 0%;
   animation: 0.2s appear ease forwards;
-  z-index: 100;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,7 +16,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
   background-color: var(--color-bg);
   padding: 30px;
   border-radius: 10px;
@@ -28,7 +27,11 @@
   flex-direction: column;
   gap: 5px;
 }
-
+.alertContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 .alertFooter {
   display: flex;
   justify-content: center;

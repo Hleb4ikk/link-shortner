@@ -1,8 +1,15 @@
 .input {
   border-radius: 5px;
   border: 1px solid var(--border-color);
-  width: 100%;
   height: 25px;
   outline: none;
-  padding: 15px 7px;
+  padding: 20px 10px;
+  font-size: 15px;
+  width: 100%;
+  outline-color: transparent;
+  transition: outline-color 0.2s ease;
+}
+.input:focus {
+  outline: 2px solid rgb(var(--primary-color));
+  outline-offset: 2px;
 }

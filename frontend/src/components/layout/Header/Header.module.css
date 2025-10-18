@@ -24,8 +24,3 @@
 .icon {
   width: 26px;
 }
-.signUpButton,
-.signUpButton:hover {
-  background-color: rgb(var(--primary-color)) !important;
-  color: var(--text-color-4) !important;
-}
