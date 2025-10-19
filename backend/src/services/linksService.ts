@@ -103,5 +103,19 @@ const createLink = async (link: unknown, userId: string) => {
     throw new InternalServerErrorException('Failed to create short link');
   }
 };
+const deleteLink = async (shortLinkId: string) => {
+  let deletedLink;
+  try {
+    deletedLink = (
+      await db
+        .delete(linksTable)
+        .where(eq(linksTable.shortLinkId, shortLinkId))
+        .returning({ id: linksTable.id })
+    )[0];
+  } catch {
+    throw new InternalServerErrorException('Error deleting link.');
+  }
 
-export { getLinkByShortId, createLink, getAllUserLinks };
+  return deletedLink;
+};
+export { getLinkByShortId, createLink, getAllUserLinks, deleteLink };

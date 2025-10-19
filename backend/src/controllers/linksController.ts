@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { createAudience, getAudienceByLinkId } from 'services/audienceService';
 import {
   createLink,
+  deleteLink,
   getAllUserLinks,
   getLinkByShortId,
 } from 'services/linksService';
@@ -11,6 +12,7 @@ import extractIpFromRequestHeaders from 'utils/extractIpFromRequestHeaders';
 
 const getLinkAudienceHandler = async (req: Request, res: Response) => {
   const shortId = req.params[slugName];
+
   const audience = await getAudienceByLinkId(shortId);
 
   res.status(HttpStatus.OK).json({ audience });
@@ -39,9 +41,15 @@ const getAllUserLinksHandler = async (req: Request, res: Response) => {
   res.status(HttpStatus.OK).json({ links });
 };
 
+const deleteLinkHandler = async (req: Request, res: Response) => {
+  const deletedLink = await deleteLink(req.params[slugName]);
+  res.status(HttpStatus.OK).json(deletedLink);
+};
+
 export {
   getLinkHandler,
   createLinkHandler,
   getAllUserLinksHandler,
   getLinkAudienceHandler,
+  deleteLinkHandler,
 };
