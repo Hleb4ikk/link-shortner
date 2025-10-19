@@ -8,6 +8,7 @@ import cookieParser from 'cookie-parser';
 import { authGuard } from 'middlewares/authGuard';
 import './strategies/jwt-strategy';
 import passport from 'passport';
+import { linksRoute } from 'routes/linksRoute';
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(express.json());
 
 app.use('/users', authGuard, usersRoute);
 app.use('/auth', authRoute);
+app.use('/links', linksRoute);
 app.use(errorHandler);
 
 app.listen(appConfig.appPort, (err) => {

@@ -1,0 +1,1 @@
+ALTER TABLE "audience" RENAME COLUMN "ud" TO "id";
