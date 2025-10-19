@@ -21,12 +21,17 @@ const createAudience = async (data: unknown) => {
     logError(createAudience.name, 'Failed to create Audience.');
   }
 
-  const region = await fetchRegionByIp(audienceDto.ip);
+  let region;
+  if (audienceDto.ip) {
+    region = await fetchRegionByIp(audienceDto.ip);
+  } else {
+    region = 'unknown';
+  }
 
   try {
     await db.insert(audienceTable).values({
       region: region ?? 'error',
-      ip: audienceDto.ip,
+      ip: audienceDto.ip ?? 'unknown',
       linkId: audienceDto.linkId,
       browser: `${uaResult.browser.name} ${uaResult.browser.version}`,
       os: `${uaResult.os.name} ${uaResult.os.version}`,

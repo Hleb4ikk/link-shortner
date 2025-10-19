@@ -7,6 +7,7 @@ export const appConfig = {
   serverUrl: `http://${process.env.APP_HOST!}:${process.env.APP_PORT!}`,
   clientUrl: `http://${process.env.CLIENT_HOST!}:${Number(process.env.CLIENT_PORT!)}`,
   dbUrl: process.env.DATABASE_URL!,
+  apiGeolocationKey: process.env.API_GEOLOCATION_KEY!,
   jwtToken: {
     secret: process.env.JWT_SECRET!,
     cookieName: process.env.JWT_COOKIE_NAME!,

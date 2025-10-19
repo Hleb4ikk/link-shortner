@@ -1,10 +1,11 @@
-import { IsIP, IsString } from 'class-validator';
+import { IsIP, IsOptional, IsString } from 'class-validator';
 
 export class AudienceDto {
   @IsString()
   linkId: string;
 
   @IsIP()
+  @IsOptional()
   ip: string;
 
   @IsString()
