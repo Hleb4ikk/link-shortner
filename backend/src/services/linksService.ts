@@ -94,6 +94,7 @@ const createLink = async (link: unknown, userId: string) => {
   try {
     await db.insert(linksTable).values({
       ownerId: userId,
+      title: linkDto.title,
       shortLinkId: shortId,
       url: linkDto.url,
     });
