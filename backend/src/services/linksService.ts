@@ -2,8 +2,9 @@ import { plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
 import { attempts } from 'constants/base-58-generator-settings';
 import { db } from 'database/db';
+import { audienceTable } from 'database/schemas/audienceTable';
 import { linksTable } from 'database/schemas/linksTable';
-import { eq } from 'drizzle-orm';
+import { count, eq } from 'drizzle-orm';
 import {
   BadRequestException,
   InternalServerErrorException,
@@ -16,9 +17,20 @@ const getAllUserLinks = async (userId: string) => {
   let links;
   try {
     links = await db
-      .select()
+      .select({
+        id: linksTable.id,
+        shortLinkId: linksTable.shortLinkId,
+        url: linksTable.url,
+        createdAt: linksTable.createdAt,
+        audienceCount: count(audienceTable.id),
+      })
       .from(linksTable)
-      .where(eq(linksTable.ownerId, userId));
+      .leftJoin(
+        audienceTable,
+        eq(audienceTable.shortLinkId, linksTable.shortLinkId),
+      )
+      .where(eq(linksTable.ownerId, userId))
+      .groupBy(linksTable.shortLinkId);
   } catch {
     throw new InternalServerErrorException('Failed to fetch links');
   }

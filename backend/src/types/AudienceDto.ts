@@ -2,7 +2,7 @@ import { IsIP, IsOptional, IsString } from 'class-validator';
 
 export class AudienceDto {
   @IsString()
-  linkId: string;
+  shortLinkId: string;
 
   @IsIP()
   @IsOptional()
