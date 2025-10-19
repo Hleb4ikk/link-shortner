@@ -4,6 +4,7 @@ import {
   getAllUserLinksHandler,
   getLinkAudienceHandler,
   getLinkHandler,
+  updateLinkHandler,
 } from 'controllers/linksController';
 import express from 'express';
 import { authGuard } from 'middlewares/authGuard';
@@ -24,6 +25,12 @@ linksRoute.delete(
   authGuard,
   permissionLinksControl,
   deleteLinkHandler,
+);
+linksRoute.post(
+  '/:linkId',
+  authGuard,
+  permissionLinksControl,
+  updateLinkHandler,
 );
 
 linksRoute.get('/:linkId', getLinkHandler);

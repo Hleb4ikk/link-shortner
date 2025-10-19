@@ -11,6 +11,7 @@ import {
   NotFoundException,
 } from 'types/exceptions/HttpExceptions';
 import { LinkDto } from 'types/LinkDto';
+import { UpdateLinkDto } from 'types/UpdateLinkDto';
 import { generateShortId } from 'utils/generate-shortId';
 
 const getAllUserLinks = async (userId: string) => {
@@ -19,6 +20,7 @@ const getAllUserLinks = async (userId: string) => {
     links = await db
       .select({
         id: linksTable.id,
+        title: linksTable.title,
         shortLinkId: linksTable.shortLinkId,
         url: linksTable.url,
         createdAt: linksTable.createdAt,
@@ -30,8 +32,9 @@ const getAllUserLinks = async (userId: string) => {
         eq(audienceTable.shortLinkId, linksTable.shortLinkId),
       )
       .where(eq(linksTable.ownerId, userId))
-      .groupBy(linksTable.shortLinkId);
-  } catch {
+      .groupBy(linksTable.id);
+  } catch (e) {
+    console.log(e);
     throw new InternalServerErrorException('Failed to fetch links');
   }
   return links;
@@ -103,6 +106,7 @@ const createLink = async (link: unknown, userId: string) => {
     throw new InternalServerErrorException('Failed to create short link');
   }
 };
+
 const deleteLink = async (shortLinkId: string) => {
   let deletedLink;
   try {
@@ -118,4 +122,37 @@ const deleteLink = async (shortLinkId: string) => {
 
   return deletedLink;
 };
-export { getLinkByShortId, createLink, getAllUserLinks, deleteLink };
+
+const updateLink = async (shortLinkId: string, updatedLink: unknown) => {
+  const updateLinkDto = plainToInstance(UpdateLinkDto, updatedLink);
+  const errors = await validate(updateLinkDto);
+
+  if (errors.length > 0) {
+    throw new BadRequestException('Invalid data');
+  }
+
+  let link;
+
+  try {
+    link = (
+      await db
+        .update(linksTable)
+        .set({ title: updateLinkDto.title })
+        .where(eq(linksTable.shortLinkId, shortLinkId))
+        .returning({ title: linksTable.title })
+    )[0];
+  } catch {
+    throw new InternalServerErrorException('Failed to update link.');
+  }
+  if (!link) {
+    throw new NotFoundException('Link is not found');
+  }
+  return link;
+};
+export {
+  getLinkByShortId,
+  createLink,
+  getAllUserLinks,
+  deleteLink,
+  updateLink,
+};

@@ -6,6 +6,7 @@ import {
   deleteLink,
   getAllUserLinks,
   getLinkByShortId,
+  updateLink,
 } from 'services/linksService';
 import { HttpStatus } from 'types/HttpStatus';
 import extractIpFromRequestHeaders from 'utils/extractIpFromRequestHeaders';
@@ -46,10 +47,16 @@ const deleteLinkHandler = async (req: Request, res: Response) => {
   res.status(HttpStatus.OK).json(deletedLink);
 };
 
+const updateLinkHandler = async (req: Request, res: Response) => {
+  const updatedLink = await updateLink(req.params[slugName], req.body);
+  res.status(HttpStatus.OK).json(updatedLink);
+};
+
 export {
   getLinkHandler,
   createLinkHandler,
   getAllUserLinksHandler,
   getLinkAudienceHandler,
   deleteLinkHandler,
+  updateLinkHandler,
 };
