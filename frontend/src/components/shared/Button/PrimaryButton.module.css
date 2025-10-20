@@ -1,5 +1,5 @@
 .primaryButton,
 .primaryButton:hover {
-  color: var(--text-color-4);
-  background-color: rgb(var(--primary-color));
+  color: var(--text-color-4) !important;
+  background-color: rgb(var(--primary-color)) !important;
 }
