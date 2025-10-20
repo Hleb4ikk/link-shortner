@@ -3,10 +3,10 @@ import { linksTable } from './linksTable';
 
 export const audienceTable = p.pgTable('audience', {
   id: p.uuid('id').primaryKey().defaultRandom(),
-  linkId: p
-    .uuid('link_id')
+  shortLinkId: p
+    .varchar('short_link_id', { length: 10 })
     .notNull()
-    .references(() => linksTable.id, { onDelete: 'cascade' }),
+    .references(() => linksTable.shortLinkId, { onDelete: 'cascade' }),
   ip: p.varchar('ip', { length: 45 }).notNull(),
   region: p.varchar('region', { length: 255 }).notNull(),
   browser: p.varchar('browser', { length: 255 }).notNull(),
