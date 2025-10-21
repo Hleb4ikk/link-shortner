@@ -24,3 +24,15 @@
 .icon {
   width: 26px;
 }
+.dropDownElement {
+  display: flex;
+  align-items: center;
+  justify-content: start !important;
+  height: 40px !important;
+  padding: 0 14px;
+  white-space: nowrap;
+  gap: 10px;
+}
+.logout {
+  color: rgb(var(--color-alert));
+}

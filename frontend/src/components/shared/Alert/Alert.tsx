@@ -113,7 +113,7 @@ const AlertRoot = ({
       {isOpen &&
         createPortal(
           <Overlay closeCallback={() => setIsOpen(false)} className={className}>
-            <Alert closeCallback={() => setIsOpen(false)}> {children}</Alert>
+            <Alert closeCallback={() => setIsOpen(false)}>{children}</Alert>
           </Overlay>,
           document.body,
         )}
