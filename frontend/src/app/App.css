@@ -31,8 +31,8 @@ body {
 :root {
   --color-bg: #ffffff;
 
+  --color-alert: 255, 0, 0;
   --color-section: #fafafa;
-
   --text-color-1: #2e201f;
   --text-color-2: #505a68;
   --text-color-3: #1f232d;
