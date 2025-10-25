@@ -10,7 +10,7 @@ export const authGuard: RequestHandler = (req, res, next) => {
       if (err) return next(err);
 
       if (!user) {
-        next(new UnauthorizedException());
+        return next(new UnauthorizedException());
       }
 
       req.user = user;

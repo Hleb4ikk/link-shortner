@@ -17,3 +17,7 @@
   height: 40px;
   width: 100%;
 }
+.error {
+  color: rgb(var(--color-alert));
+  animation: 0.5s appear ease;
+}

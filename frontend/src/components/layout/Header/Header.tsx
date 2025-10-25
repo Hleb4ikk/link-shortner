@@ -14,6 +14,9 @@ import {
 } from '../../shared/DropDownElement/DropDownElement';
 import { LogOut, Pencil } from 'lucide-react';
 import Separator from '../../shared/Separator/Separator';
+import { useUser } from '../../features/user/UserProvider';
+import { useEffect, useState } from 'react';
+import AvatarSkeleton from '../../skeletons/AvatarSkeleton';
 
 const menuItems = [
   {
@@ -27,34 +30,51 @@ const menuItems = [
 ];
 
 export default function Header() {
+  const { user } = useUser();
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (user) {
+      setLoading(false);
+    }
+  }, [user]);
+
   return (
     <div className={styles.headerContainer}>
       <header className={styles.header}>
         <Logo />
         <NavigationMenu>
-          {menuItems.map((item) => (
-            <NavigationItem to={item.path}>{item.text}</NavigationItem>
+          {menuItems.map((item, index) => (
+            <NavigationItem key={index} to={item.path}>
+              {item.text}
+            </NavigationItem>
           ))}
         </NavigationMenu>
         <div className={styles.usersMenu}>
           <Button className={styles.themeSwitcher}>
             <Sun className={styles.icon} />
           </Button>
-          <AuthAlert />
+          {loading && <AvatarSkeleton />}
+          {!user && !loading && <AuthAlert />}
+          {user && !loading && (
+            <DropDownElement trigger={<Avatar accountName={user.email} />}>
+              <DropDownElementContent>
+                <Button className={styles.dropDownElement}>
+                  <Pencil size={16} />
+                  Change Password
+                </Button>
+                <Separator />
+                <Button
+                  className={`${styles.dropDownElement} ${styles.logout}`}
+                >
+                  <LogOut size={16} />
+                  Log Out
+                </Button>
+              </DropDownElementContent>
+            </DropDownElement>
+          )}
         </div>
-        <DropDownElement trigger={<Avatar accountName="Hleb" />}>
-          <DropDownElementContent>
-            <Button className={styles.dropDownElement}>
-              <Pencil size={16} />
-              Change Password
-            </Button>
-            <Separator />
-            <Button className={`${styles.dropDownElement} ${styles.logout}`}>
-              <LogOut size={16} />
-              Log Out
-            </Button>
-          </DropDownElementContent>
-        </DropDownElement>
       </header>
     </div>
   );

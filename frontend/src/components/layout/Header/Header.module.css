@@ -34,5 +34,5 @@
   gap: 10px;
 }
 .logout {
-  color: rgb(var(--color-alert));
+  color: rgb(var(--color-alert)) !important;
 }
