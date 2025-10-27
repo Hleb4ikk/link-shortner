@@ -2,7 +2,7 @@ import styles from './AuthForm.module.css';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { AuthApiResponseData, AuthType } from '../types';
+import { AuthApiData, AuthType } from '../types';
 import Label from '../../../shared/Label/Label';
 import Input from '../../../shared/Input/Input';
 import Form from '../../../shared/Form/Form';
@@ -14,6 +14,7 @@ import { loginSchema } from '../validation/loginSchema';
 import { registerSchema } from '../validation/registerSchema';
 import { login, register as registerUser } from '../api';
 import { useEffect, useState } from 'react';
+import { Loader } from 'lucide-react';
 
 interface AuthFormProps extends FormProps {
   authType: AuthType;
@@ -27,37 +28,39 @@ export default function AuthForm({
   className,
   ...props
 }: AuthFormProps) {
-  const [messageData, setMessageData] = useState<AuthApiResponseData | null>(
-    null,
-  );
+  const [messageData, setMessageData] = useState<AuthApiData | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting, isSubmitted },
+    formState: { errors, isSubmitSuccessful },
+    reset,
   } = useForm<FormFields>({
     resolver: zodResolver(authType === 'login' ? loginSchema : registerSchema),
   });
-  useEffect(() => {
-    if (isSubmitting) {
-      setMessageData(null);
-    }
-  }, [isSubmitting]);
 
   useEffect(() => {
-    if (isSubmitted) {
+    setMessageData(null);
+    reset();
+  }, [authType]);
+
+  useEffect(() => {
+    if (messageData?.successFetch && !('statusCode' in messageData.data)) {
       setTimeout(() => {
         window.location.reload();
       }, 500);
     }
-  }, [isSubmitted]);
+  }, [isSubmitSuccessful]);
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
+    setIsLoading(true);
     if (authType === 'login') {
       setMessageData(await login(data.email, data.password));
     } else {
       setMessageData(await registerUser(data.email, data.password));
     }
+    setIsLoading(false);
   };
 
   const buttonVariant = authType === 'login' ? 'Sign In' : 'Create Account';
@@ -94,13 +97,18 @@ export default function AuthForm({
         )}
       </div>
       <div className={styles.submitResult}>
-        {messageData &&
-          ('statusCode' in messageData
-            ? messageData.description
-            : messageData.message)}
+        {messageData?.successFetch &&
+          ('statusCode' in messageData.data
+            ? messageData.data.description
+            : messageData.data.message)}
+        {!messageData?.successFetch && messageData?.message}
       </div>
-      <PrimaryButton className={styles.submitButton}>
+      <PrimaryButton
+        className={`${styles.submitButton} ${isLoading ? styles.loadingSubmitButton : ''}`}
+        disabled={isLoading}
+      >
         {buttonVariant}
+        {isLoading && <Loader className={styles.loader} />}
       </PrimaryButton>
     </Form>
   );

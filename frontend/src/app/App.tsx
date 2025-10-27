@@ -20,18 +20,29 @@ const routes = [
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchUser() {
-      const user = await getMe();
-      setUser(user);
+      try {
+        const responseData = await getMe();
+
+        if (!('statusCode' in responseData)) {
+          setUser(responseData);
+        }
+      } catch {
+        setUser(null);
+      } finally {
+        setIsLoading(false);
+      }
     }
+
     fetchUser();
   }, []);
 
   return (
     <Provider store={store}>
-      <UserProvider initialValue={user}>
+      <UserProvider initialValue={user} isLoading={isLoading}>
         <div className="App">
           <BrowserRouter>
             <AppLayout>

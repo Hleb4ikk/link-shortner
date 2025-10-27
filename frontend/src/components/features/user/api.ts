@@ -1,22 +1,11 @@
-import { AuthApiResponseData } from '../auth/types';
 import { User } from './UserProvider';
 
 export const getMe = async () => {
-  let response;
+  const response = await fetch('http://localhost:8080/users/me', {
+    credentials: 'include',
+  });
 
-  try {
-    response = await fetch('http://localhost:8080/users/me', {
-      credentials: 'include',
-    });
-  } catch {
-    return null;
-  }
-
-  const data: AuthApiResponseData = await response.json();
-
-  if ('statusCode' in data) {
-    return null;
-  }
+  const data = await response.json();
 
   return data as User;
 };

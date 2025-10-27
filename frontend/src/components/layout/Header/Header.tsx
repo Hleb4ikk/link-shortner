@@ -12,11 +12,11 @@ import {
   DropDownElement,
   DropDownElementContent,
 } from '../../shared/DropDownElement/DropDownElement';
-import { LogOut, Pencil } from 'lucide-react';
+import { Pencil } from 'lucide-react';
 import Separator from '../../shared/Separator/Separator';
 import { useUser } from '../../features/user/UserProvider';
-import { useEffect, useState } from 'react';
 import AvatarSkeleton from '../../skeletons/AvatarSkeleton';
+import LogOutButton from '../../features/auth/LogOutButton/LogOutButton';
 
 const menuItems = [
   {
@@ -30,15 +30,7 @@ const menuItems = [
 ];
 
 export default function Header() {
-  const { user } = useUser();
-
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (user) {
-      setLoading(false);
-    }
-  }, [user]);
+  const { user, isLoading } = useUser();
 
   return (
     <div className={styles.headerContainer}>
@@ -55,9 +47,9 @@ export default function Header() {
           <Button className={styles.themeSwitcher}>
             <Sun className={styles.icon} />
           </Button>
-          {loading && <AvatarSkeleton />}
-          {!user && !loading && <AuthAlert />}
-          {user && !loading && (
+          {!user && isLoading && <AvatarSkeleton />}
+          {!user && !isLoading && <AuthAlert />}
+          {user && !isLoading && (
             <DropDownElement trigger={<Avatar accountName={user.email} />}>
               <DropDownElementContent>
                 <Button className={styles.dropDownElement}>
@@ -65,12 +57,7 @@ export default function Header() {
                   Change Password
                 </Button>
                 <Separator />
-                <Button
-                  className={`${styles.dropDownElement} ${styles.logout}`}
-                >
-                  <LogOut size={16} />
-                  Log Out
-                </Button>
+                <LogOutButton className={styles.dropDownElement} />
               </DropDownElementContent>
             </DropDownElement>
           )}

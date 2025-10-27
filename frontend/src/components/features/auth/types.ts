@@ -11,3 +11,7 @@ type ErrorApiResponseData = {
   message: string;
   description?: string;
 };
+
+export type AuthApiData =
+  | { successFetch: true; data: AuthApiResponseData }
+  | { successFetch: false; message: string };

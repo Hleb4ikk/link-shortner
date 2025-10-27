@@ -1,6 +1,6 @@
-import { AuthApiResponseData } from './types';
+import { AuthApiData, AuthApiResponseData } from './types';
 
-const login = async (email: string, password: string) => {
+const login = async (email: string, password: string): Promise<AuthApiData> => {
   let response;
 
   try {
@@ -16,15 +16,18 @@ const login = async (email: string, password: string) => {
       credentials: 'include',
     });
   } catch {
-    return { message: 'Failed to login.' };
+    return { successFetch: false, message: 'Failed to login.' };
   }
 
   const data: AuthApiResponseData = await response.json();
 
-  return data;
+  return { successFetch: true, data };
 };
 
-const register = async (email: string, password: string) => {
+const register = async (
+  email: string,
+  password: string,
+): Promise<AuthApiData> => {
   let response;
 
   try {
@@ -40,15 +43,15 @@ const register = async (email: string, password: string) => {
       credentials: 'include',
     });
   } catch {
-    return { message: 'Failed to register.' };
+    return { successFetch: false, message: 'Failed to register.' };
   }
 
   const data: AuthApiResponseData = await response.json();
 
-  return data;
+  return { successFetch: true, data };
 };
 
-const logout = async () => {
+const logout = async (): Promise<AuthApiData> => {
   let response;
   try {
     response = await fetch('http://localhost:8080/auth/logout', {
@@ -59,14 +62,17 @@ const logout = async () => {
       credentials: 'include',
     });
   } catch {
-    return { message: 'Failed to log out.' };
+    return { successFetch: false, message: 'Failed to log out.' };
   }
   const data: AuthApiResponseData = await response.json();
 
-  return data;
+  return { successFetch: true, data };
 };
 
-const changePassword = async (oldPassword: string, newPassword: string) => {
+const changePassword = async (
+  oldPassword: string,
+  newPassword: string,
+): Promise<AuthApiData> => {
   let response;
   try {
     response = await fetch('http://localhost:8080/auth/password', {
@@ -80,11 +86,11 @@ const changePassword = async (oldPassword: string, newPassword: string) => {
       }),
     });
   } catch {
-    return { messsage: 'Failed to change password' };
+    return { successFetch: false, message: 'Failed to change password' };
   }
   const data: AuthApiResponseData = await response.json();
 
-  return data;
+  return { successFetch: true, data };
 };
 
 export { login, register, logout, changePassword };
