@@ -17,10 +17,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { changePasswordSchema } from '../validation/changePasswordSchema';
 import { changePassword } from '../api';
 
-interface ChangePasswordFormProps extends Omit<FormProps, 'formState'> {
-  className: string;
-}
-
 type FormFields = {
   oldPassword: string;
   newPassword: string;
@@ -29,7 +25,7 @@ type FormFields = {
 export default function ChangePasswordForm({
   className,
   ...props
-}: ChangePasswordFormProps) {
+}: Omit<FormProps, 'formState'>) {
   const [messageData, setMessageData] = useState<AuthApiData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
