@@ -3,3 +3,19 @@
   flex-direction: column;
   gap: 10px;
 }
+.formItem {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.submitButton,
+.submitButton:hover {
+  height: 40px;
+  width: 100%;
+  gap: 10px;
+}
+.loadingSubmitButton,
+.loadingSubmitButton:hover {
+  cursor: not-allowed;
+  background-color: rgba(var(--primary-color), 0.7) !important;
+}

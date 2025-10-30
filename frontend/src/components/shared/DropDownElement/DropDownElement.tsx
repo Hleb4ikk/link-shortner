@@ -22,21 +22,20 @@ const DropDownElement = ({
   const containerRef = useRef<HTMLDivElement>(null);
 
   function handleClose(event: MouseEvent) {
-    if (
-      containerRef.current &&
-      !containerRef.current.contains(event.target as Node)
-    ) {
+    if (!containerRef.current?.contains(event.target as Node)) {
       setIsOpen(false);
     }
   }
 
   useEffect(() => {
+    const root = document.getElementById('root');
+
     if (isOpen) {
-      document.body.addEventListener('click', handleClose);
+      root?.addEventListener('click', handleClose);
     }
 
     return () => {
-      document.body.removeEventListener('click', handleClose);
+      root?.removeEventListener('click', handleClose);
     };
   }, [isOpen]);
 

@@ -80,6 +80,7 @@ const changePassword = async (
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include',
       body: JSON.stringify({
         oldPassword,
         newPassword,

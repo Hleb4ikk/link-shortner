@@ -5,7 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { AuthApiData, AuthType } from '../types';
 import Label from '../../../shared/Label/Label';
 import Input from '../../../shared/Input/Input';
-import Form from '../../../shared/Form/Form';
+import { Form, FormItem } from '../../../shared/Form/Form';
 import { FormProps } from 'react-router-dom';
 import PrimaryButton from '../../../shared/Button/PrimaryButton';
 
@@ -15,6 +15,7 @@ import { registerSchema } from '../validation/registerSchema';
 import { login, register as registerUser } from '../api';
 import { useEffect, useState } from 'react';
 import { Loader } from 'lucide-react';
+import { Message, MessageContent } from '../../../shared/Message/Message';
 
 interface AuthFormProps extends FormProps {
   authType: AuthType;
@@ -34,7 +35,7 @@ export default function AuthForm({
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors },
     reset,
   } = useForm<FormFields>({
     resolver: zodResolver(authType === 'login' ? loginSchema : registerSchema),
@@ -51,7 +52,7 @@ export default function AuthForm({
         window.location.reload();
       }, 500);
     }
-  }, [isSubmitSuccessful]);
+  }, [messageData]);
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     setIsLoading(true);
@@ -68,10 +69,11 @@ export default function AuthForm({
   return (
     <Form
       onSubmit={handleSubmit(onSubmit)}
+      formState={{ isLoading: isLoading }}
       className={`${styles.authForm} ${className} `}
       {...props}
     >
-      <div className={styles.formItem}>
+      <FormItem>
         <Label htmlFor="email">Email</Label>
         <Input
           id="email"
@@ -82,8 +84,8 @@ export default function AuthForm({
         {errors.email && (
           <p className={styles.error}>{errors.email?.message}</p>
         )}
-      </div>
-      <div className={styles.formItem}>
+      </FormItem>
+      <FormItem>
         <Label htmlFor="password">Password</Label>
         <Input
           id="password"
@@ -95,14 +97,22 @@ export default function AuthForm({
         {errors.password && (
           <p className={styles.error}>{errors.password?.message}</p>
         )}
-      </div>
-      <div className={styles.submitResult}>
-        {messageData?.successFetch &&
-          ('statusCode' in messageData.data
-            ? messageData.data.description
-            : messageData.data.message)}
-        {!messageData?.successFetch && messageData?.message}
-      </div>
+      </FormItem>
+      {messageData?.successFetch &&
+        ('statusCode' in messageData.data ? (
+          <Message className={styles.failedSubmitResult}>
+            <MessageContent>{messageData.data.description}</MessageContent>
+          </Message>
+        ) : (
+          <Message className={styles.successSubmitResult}>
+            <MessageContent>{messageData.data.message}</MessageContent>
+          </Message>
+        ))}
+      {messageData && !messageData.successFetch && (
+        <Message className={styles.failedSubmitResult}>
+          <MessageContent>{messageData.message}</MessageContent>
+        </Message>
+      )}
       <PrimaryButton
         className={`${styles.submitButton} ${isLoading ? styles.loadingSubmitButton : ''}`}
         disabled={isLoading}

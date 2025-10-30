@@ -1,0 +1,7 @@
+.message {
+  border: solid 1px rgb(var(--primary-color));
+  background-color: rgba(var(--primary-color), 0.2);
+  color: rgb(var(--primary-color));
+  padding: 10px;
+  border-radius: 5px;
+}

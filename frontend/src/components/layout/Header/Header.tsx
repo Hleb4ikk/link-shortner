@@ -12,11 +12,11 @@ import {
   DropDownElement,
   DropDownElementContent,
 } from '../../shared/DropDownElement/DropDownElement';
-import { Pencil } from 'lucide-react';
 import Separator from '../../shared/Separator/Separator';
 import { useUser } from '../../features/user/UserProvider';
 import AvatarSkeleton from '../../skeletons/AvatarSkeleton';
 import LogOutButton from '../../features/auth/LogOutButton/LogOutButton';
+import ChangePasswordAlert from '../../features/auth/ChangePasswordAlert/ChangePasswordAlert';
 
 const menuItems = [
   {
@@ -47,15 +47,13 @@ export default function Header() {
           <Button className={styles.themeSwitcher}>
             <Sun className={styles.icon} />
           </Button>
+
           {!user && isLoading && <AvatarSkeleton />}
           {!user && !isLoading && <AuthAlert />}
           {user && !isLoading && (
             <DropDownElement trigger={<Avatar accountName={user.email} />}>
               <DropDownElementContent>
-                <Button className={styles.dropDownElement}>
-                  <Pencil size={16} />
-                  Change Password
-                </Button>
+                <ChangePasswordAlert />
                 <Separator />
                 <LogOutButton className={styles.dropDownElement} />
               </DropDownElementContent>
