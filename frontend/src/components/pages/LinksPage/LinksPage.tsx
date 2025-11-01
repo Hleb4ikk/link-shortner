@@ -1,31 +1,28 @@
-import {
-  ChartColumn,
-  Copy,
-  Plus,
-  Search,
-  SquareArrowOutUpRight,
-  Trash,
-} from 'lucide-react';
+import { Search } from 'lucide-react';
 import styles from './LinksPage.module.css';
-import Button from '../../shared/Button/Button';
 import Input from '../../shared/Input/Input';
-import {
-  AlertRoot,
-  AlertFooter,
-  AlertContent,
-  AlertHeader,
-} from '../../shared/Alert/Alert';
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from '../../shared/Card/Card';
-import Label from '../../shared/Label/Label';
-import PrimaryButton from '../../shared/Button/PrimaryButton';
-import Form from '../../shared/Form/Form';
+
+import CreateLinkAlert from '../../features/links/CreateLinkAlert/CreateLinkAlert';
+import { useEffect, useState } from 'react';
+import { ApiData } from '../../../types/ApiData';
+import { GetLinksResponse } from '../../features/links/types/LinksResponse';
+import { getUserLinks } from '../../features/links/api';
+import LinkCard from '../../features/links/LinkCard/LinkCard';
+import LinksSectionContentSkeleton from '../../skeletons/LinksSectionContentSkeleton/LinksSectionSkeleton';
 
 export default function LinksPage() {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const [messageData, setMessageData] =
+    useState<ApiData<GetLinksResponse> | null>(null);
+  useEffect(() => {
+    async function fetchLinks() {
+      setMessageData(await getUserLinks());
+      setIsLoading(false);
+    }
+    fetchLinks();
+  }, []);
+
   return (
     <>
       <div className={styles.managementSectionContainer}>
@@ -36,43 +33,7 @@ export default function LinksPage() {
               Manage and track all your shortened links
             </p>
           </div>
-          <AlertRoot
-            alertTrigger={
-              <PrimaryButton className={`${styles.createLinkButton}`}>
-                <Plus className={styles.plus} />
-                Create Short Link
-              </PrimaryButton>
-            }
-          >
-            <AlertHeader>
-              <h1 className={styles.formHeader}>Create Short Link</h1>
-              <p className={styles.formDescription}>
-                Enter the URL you want to shorten and give it a title
-              </p>
-            </AlertHeader>
-
-            <AlertContent>
-              <Form>
-                <Label htmlFor="title">Original Link</Label>
-                <Input
-                  placeholder="https://example.com/long-url"
-                  className={styles.formField}
-                  id="title"
-                />
-                <Label htmlFor="url">Title</Label>
-                <Input
-                  placeholder="My Campaign Link"
-                  className={styles.formField}
-                  id="url"
-                ></Input>
-              </Form>
-            </AlertContent>
-            <AlertFooter>
-              <PrimaryButton className={styles.submitButton}>
-                Create Link
-              </PrimaryButton>
-            </AlertFooter>
-          </AlertRoot>
+          <CreateLinkAlert />
         </section>
         <section className={`${styles.section} ${styles.searchSection}`}>
           <div className={`${styles.searchContainer}`}>
@@ -82,49 +43,12 @@ export default function LinksPage() {
         </section>
 
         <section className={`${styles.section} ${styles.linksSection}`}>
-          <Card>
-            <CardHeader>Marketing Campaign 2024</CardHeader>
-            <CardContent>
-              <div className={styles.linkInfoContainer}>
-                <span className={styles.shortLink}>lnk.ly/abc123</span>
-                <Button className={styles.copyButton}>
-                  <Copy style={{ color: 'var(--text-color-2)' }} />
-                </Button>
-              </div>
-              <div className={styles.linkInfoContainer}>
-                <SquareArrowOutUpRight
-                  style={{ width: '12px', color: 'var(--text-color-2)' }}
-                />
-                <a
-                  className={styles.fullUrl}
-                  href="https://example.com/very-long-url-that-needs-to-be-shortened"
-                >
-                  https://example.com/very-long-url-that-needs-to-be-shortened
-                </a>
-              </div>
-            </CardContent>
-            <CardFooter>
-              <div className={styles.actions}>
-                <div className={styles.clicksContainer}>
-                  <h2>1234</h2>
-                  <span
-                    style={{
-                      fontSize: '0.875rem',
-                      color: 'var(--text-color-2)',
-                    }}
-                  >
-                    Clicks
-                  </span>
-                </div>
-                <Button className={styles.actionButton}>
-                  <ChartColumn className={styles.actionIcon} />
-                </Button>
-                <Button className={styles.actionButton}>
-                  <Trash className={styles.actionIcon} />
-                </Button>
-              </div>
-            </CardFooter>
-          </Card>
+          {messageData?.successFetch &&
+            !('statusCode' in messageData.fetchData) &&
+            messageData.fetchData.links.map((link, index) => (
+              <LinkCard link={link} key={index} />
+            ))}
+          {isLoading && <LinksSectionContentSkeleton />}
         </section>
       </div>
     </>

@@ -27,8 +27,13 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text);
 }
-
+.notFoundPathName {
+  font-size: 1.625rem;
+  font-weight: 600;
+}
 :root {
+  --shimmer-animation: shimmer 3s linear infinite;
+
   --color-bg: #ffffff;
 
   --color-alert: 255, 0, 0;
@@ -63,5 +68,14 @@ body {
     --color-4: #43434b;
     --color-5: #28233d;
     --color-6: #1e2129;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
   }
 }

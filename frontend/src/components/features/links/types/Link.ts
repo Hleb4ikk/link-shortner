@@ -1,6 +1,8 @@
 export type Link = {
   id: string;
+  title?: string;
   shortLinkId: string;
   url: string;
-  created_at?: string;
+  createdAt: string;
+  audienceCount: number;
 };

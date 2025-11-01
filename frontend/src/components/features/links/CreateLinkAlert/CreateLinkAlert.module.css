@@ -1,0 +1,15 @@
+.formHeader {
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+.formDescription {
+  color: var(--text-color-2);
+}
+.createLinkButton,
+.createLinkButton:hover {
+  height: 40px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  white-space: nowrap;
+}

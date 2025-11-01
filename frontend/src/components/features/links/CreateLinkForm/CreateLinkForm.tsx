@@ -1,8 +1,7 @@
-import styles from './AuthForm.module.css';
+import styles from './CreateLinkForm.module.css';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { AuthApiResponseData, AuthType } from '../types';
 import Label from '../../../shared/Label/Label';
 import Input from '../../../shared/Input/Input';
 import { Form, FormItem } from '../../../shared/Form/Form';
@@ -10,43 +9,33 @@ import { FormProps } from 'react-router-dom';
 import PrimaryButton from '../../../shared/Button/PrimaryButton';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { loginSchema } from '../validation/loginSchema';
-import { registerSchema } from '../validation/registerSchema';
-import { login, register as registerUser } from '../api';
+
 import { useEffect, useState } from 'react';
 import { Loader } from 'lucide-react';
 import { Message, MessageContent } from '../../../shared/Message/Message';
+import { createLinkSchema } from '../validation/createLinkSchema';
 import { ApiData } from '../../../../types/ApiData';
+import { CreateLinkResponse } from '../types/LinksResponse';
+import { createLink } from '../api';
 
-interface AuthFormProps extends FormProps {
-  authType: AuthType;
-}
 type FormFields = {
-  email: string;
-  password: string;
+  title?: string;
+  originalLink: string;
 };
-export default function AuthForm({
-  authType,
-  className,
-  ...props
-}: AuthFormProps) {
+
+export default function CreateLinkForm({ className, ...props }: FormProps) {
   const [messageData, setMessageData] =
-    useState<ApiData<AuthApiResponseData> | null>(null);
+    useState<ApiData<CreateLinkResponse> | null>(null);
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<FormFields>({
-    resolver: zodResolver(authType === 'login' ? loginSchema : registerSchema),
+    resolver: zodResolver(createLinkSchema),
   });
-
-  useEffect(() => {
-    setMessageData(null);
-    reset();
-  }, [authType]);
 
   useEffect(() => {
     if (messageData?.successFetch && !('statusCode' in messageData.fetchData)) {
@@ -58,15 +47,9 @@ export default function AuthForm({
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     setIsLoading(true);
-    if (authType === 'login') {
-      setMessageData(await login(data.email, data.password));
-    } else {
-      setMessageData(await registerUser(data.email, data.password));
-    }
+    setMessageData(await createLink(data.originalLink, data.title));
     setIsLoading(false);
   };
-
-  const buttonVariant = authType === 'login' ? 'Sign In' : 'Create Account';
 
   return (
     <Form
@@ -76,38 +59,40 @@ export default function AuthForm({
       {...props}
     >
       <FormItem>
-        <Label htmlFor="email">Email</Label>
+        <Label htmlFor="title">Title</Label>
         <Input
-          id="email"
+          id="title"
           className={styles.formField}
-          placeholder="you@example.com"
-          {...register('email')}
+          placeholder="My Campaign Link"
+          {...register('title')}
         />
-        {errors.email && (
-          <p className={styles.error}>{errors.email?.message}</p>
-        )}
+        {errors.title && <p className={styles.error}>{errors.title.message}</p>}
       </FormItem>
       <FormItem>
-        <Label htmlFor="password">Password</Label>
+        <Label htmlFor="originalLink">Original Link</Label>
         <Input
-          id="password"
-          type="password"
+          id="originalLink"
           className={styles.formField}
-          placeholder="Please enter password..."
-          {...register('password')}
+          placeholder="https://example.com/long-url"
+          {...register('originalLink')}
         />
-        {errors.password && (
-          <p className={styles.error}>{errors.password?.message}</p>
+        {errors.originalLink && (
+          <p className={styles.error}>{errors.originalLink.message}</p>
         )}
       </FormItem>
       {messageData?.successFetch &&
         ('statusCode' in messageData.fetchData ? (
           <Message className={styles.failedSubmitResult}>
-            <MessageContent>{messageData.fetchData.description}</MessageContent>
+            <MessageContent>
+              {messageData.fetchData.description ||
+                messageData.fetchData.message}
+            </MessageContent>
           </Message>
         ) : (
           <Message className={styles.successSubmitResult}>
-            <MessageContent>{messageData.fetchData.message}</MessageContent>
+            <MessageContent>
+              Link {messageData.fetchData.shortLinkId} was created.
+            </MessageContent>
           </Message>
         ))}
       {messageData && !messageData.successFetch && (
@@ -119,7 +104,7 @@ export default function AuthForm({
         className={`${styles.submitButton} ${isLoading ? styles.loadingSubmitButton : ''}`}
         disabled={isLoading}
       >
-        {buttonVariant}
+        Create Link
         {isLoading && <Loader className={styles.loader} />}
       </PrimaryButton>
     </Form>

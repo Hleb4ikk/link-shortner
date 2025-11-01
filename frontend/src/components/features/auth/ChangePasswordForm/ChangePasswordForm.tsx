@@ -11,11 +11,12 @@ import Input from '../../../shared/Input/Input';
 import Label from '../../../shared/Label/Label';
 import { Message, MessageContent } from '../../../shared/Message/Message';
 import { useEffect, useState } from 'react';
-import { AuthApiData } from '../types';
 import { Loader } from 'lucide-react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { changePasswordSchema } from '../validation/changePasswordSchema';
 import { changePassword } from '../api';
+import { ApiData } from '../../../../types/ApiData';
+import { AuthApiResponseData } from '../types';
 
 type FormFields = {
   oldPassword: string;
@@ -26,7 +27,8 @@ export default function ChangePasswordForm({
   className,
   ...props
 }: Omit<FormProps, 'formState'>) {
-  const [messageData, setMessageData] = useState<AuthApiData | null>(null);
+  const [messageData, setMessageData] =
+    useState<ApiData<AuthApiResponseData> | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const {
@@ -47,7 +49,7 @@ export default function ChangePasswordForm({
   };
 
   useEffect(() => {
-    if (messageData?.successFetch && !('statusCode' in messageData.data)) {
+    if (messageData?.successFetch && !('statusCode' in messageData.fetchData)) {
       setTimeout(() => {
         window.location.reload();
       }, 500);
@@ -88,15 +90,16 @@ export default function ChangePasswordForm({
         )}
       </FormItem>
       {messageData?.successFetch &&
-        ('statusCode' in messageData.data ? (
+        ('statusCode' in messageData.fetchData ? (
           <Message className={styles.failedSubmitResult}>
             <MessageContent>
-              {messageData.data.description || messageData.data.message}
+              {messageData.fetchData.description ||
+                messageData.fetchData.message}
             </MessageContent>
           </Message>
         ) : (
           <Message className={styles.successSubmitResult}>
-            <MessageContent>{messageData.data.message}</MessageContent>
+            <MessageContent>{messageData.fetchData.message}</MessageContent>
           </Message>
         ))}
       {messageData && !messageData.successFetch && (

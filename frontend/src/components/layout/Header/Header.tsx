@@ -14,7 +14,7 @@ import {
 } from '../../shared/DropDownElement/DropDownElement';
 import Separator from '../../shared/Separator/Separator';
 import { useUser } from '../../features/user/UserProvider';
-import AvatarSkeleton from '../../skeletons/AvatarSkeleton';
+import AvatarSkeleton from '../../skeletons/AvatarSkeleton/AvatarSkeleton';
 import LogOutButton from '../../features/auth/LogOutButton/LogOutButton';
 import ChangePasswordAlert from '../../features/auth/ChangePasswordAlert/ChangePasswordAlert';
 

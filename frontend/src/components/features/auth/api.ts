@@ -1,6 +1,11 @@
-import { AuthApiData, AuthApiResponseData } from './types';
+import { ApiData } from '../../../types/ApiData';
 
-const login = async (email: string, password: string): Promise<AuthApiData> => {
+import { AuthApiResponseData } from './types';
+
+const login = async (
+  email: string,
+  password: string,
+): Promise<ApiData<AuthApiResponseData>> => {
   let response;
 
   try {
@@ -21,13 +26,13 @@ const login = async (email: string, password: string): Promise<AuthApiData> => {
 
   const data: AuthApiResponseData = await response.json();
 
-  return { successFetch: true, data };
+  return { successFetch: true, fetchData: data };
 };
 
 const register = async (
   email: string,
   password: string,
-): Promise<AuthApiData> => {
+): Promise<ApiData<AuthApiResponseData>> => {
   let response;
 
   try {
@@ -48,10 +53,10 @@ const register = async (
 
   const data: AuthApiResponseData = await response.json();
 
-  return { successFetch: true, data };
+  return { successFetch: true, fetchData: data };
 };
 
-const logout = async (): Promise<AuthApiData> => {
+const logout = async (): Promise<ApiData<AuthApiResponseData>> => {
   let response;
   try {
     response = await fetch('http://localhost:8080/auth/logout', {
@@ -66,13 +71,13 @@ const logout = async (): Promise<AuthApiData> => {
   }
   const data: AuthApiResponseData = await response.json();
 
-  return { successFetch: true, data };
+  return { successFetch: true, fetchData: data };
 };
 
 const changePassword = async (
   oldPassword: string,
   newPassword: string,
-): Promise<AuthApiData> => {
+): Promise<ApiData<AuthApiResponseData>> => {
   let response;
   try {
     response = await fetch('http://localhost:8080/auth/password', {
@@ -91,7 +96,7 @@ const changePassword = async (
   }
   const data: AuthApiResponseData = await response.json();
 
-  return { successFetch: true, data };
+  return { successFetch: true, fetchData: data };
 };
 
 export { login, register, logout, changePassword };

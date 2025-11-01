@@ -1,4 +1,4 @@
-import { User } from './UserProvider';
+import { User } from './user';
 
 export const getMe = async () => {
   const response = await fetch('http://localhost:8080/users/me', {

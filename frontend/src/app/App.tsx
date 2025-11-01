@@ -6,16 +6,38 @@ import AppLayout from '../components/layout/AppLayout';
 import HomePage from '../components/pages/HomePage/HomePage';
 import LinksPage from '../components/pages/LinksPage/LinksPage';
 import AudiencePage from '../components/pages/AudiencePage/AudiencePage';
-import NotFoundPage from '../components/pages/NotFoundPage/NotFoundPage';
-import UserProvider, { User } from '../components/features/user/UserProvider';
+import UserProvider from '../components/features/user/UserProvider';
+import { User } from '../components/features/user/user';
 import { useEffect, useState } from 'react';
 import { getMe } from '../components/features/user/api';
+import PrivatePage from '../components/features/permission/PrivatePage';
+import ErrorPage from '../components/pages/ErrorPagePage/ErrorPage';
 
 const routes = [
   { path: '/', element: <HomePage /> },
-  { path: '/links', element: <LinksPage /> },
+  {
+    path: '/links',
+    element: (
+      <PrivatePage>
+        <LinksPage />
+      </PrivatePage>
+    ),
+  },
   { path: '/links/:id', element: <AudiencePage /> },
-  { path: '*', element: <NotFoundPage /> },
+  {
+    path: '*',
+    element: (
+      <ErrorPage
+        statusCode={404}
+        description={
+          <>
+            Page <span className="notFoundPathName">{location.pathname}</span>
+            was't found.
+          </>
+        }
+      />
+    ),
+  },
 ];
 
 function App() {

@@ -1,0 +1,53 @@
+.linkCard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  height: 218px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #e8e8e8 25%, #d0d0d0 50%, #e8e8e8 75%);
+  background-size: 200% 200%;
+  animation: var(--shimmer-animation);
+  padding: 21px;
+}
+.linkHeader {
+  max-width: 300px;
+  height: 2.5rem;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #bbbbbb 25%, #888888 50%, #bbbbbb 75%);
+  background-size: 200% 200%;
+  animation: var(--shimmer-animation);
+}
+.linkInfoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.originalLink {
+  height: 2rem;
+  width: 400px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #bbbbbb 25%, #888888 50%, #bbbbbb 75%);
+  background-size: 200% 200%;
+  animation: var(--shimmer-animation);
+}
+.shortLink {
+  height: 2rem;
+  width: 450px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #bbbbbb 25%, #888888 50%, #bbbbbb 75%);
+  background-size: 200% 200%;
+  animation: var(--shimmer-animation);
+}
+.actions {
+  display: flex;
+  gap: 26px;
+}
+.actionButton {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #bbbbbb 25%, #888888 50%, #bbbbbb 75%);
+  background-size: 200% 200%;
+  animation: var(--shimmer-animation);
+}

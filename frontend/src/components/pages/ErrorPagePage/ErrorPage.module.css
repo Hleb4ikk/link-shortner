@@ -6,7 +6,7 @@
   height: 100%;
   gap: 10px;
 }
-.goHomeButton {
+.goBackButton {
   height: 20px;
   background-color: var(--primary-color);
   padding: 17px 15px;
@@ -15,10 +15,7 @@
 .code {
   font-size: 4rem;
 }
-.pathname {
-  font-size: 1.625rem;
-  font-weight: 600;
-}
+
 .description {
   font-weight: 300;
   font-size: 1.5rem;
