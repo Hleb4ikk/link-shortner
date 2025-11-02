@@ -50,12 +50,14 @@ export const createLink = createAsyncThunk<
 const links = createSlice({
   name: 'links',
   initialState: {
-    data: null,
+    isCreating: false,
     isLoading: false,
+    data: null,
     error: null,
   } as {
-    data: Link[] | null;
+    isCreating: boolean;
     isLoading: boolean;
+    data: Link[] | null;
     error: string | null;
   },
   reducers: {},
@@ -76,13 +78,16 @@ const links = createSlice({
           'Error getting links.';
         state.isLoading = false;
       })
-
+      .addCase(createLink.pending, (state) => {
+        state.isCreating = true;
+        state.error = null;
+      })
       .addCase(createLink.rejected, (state, action) => {
         state.error =
           action.payload?.description ||
           action.payload?.message ||
           'Error creating link.';
-        state.isLoading = false;
+        state.isCreating = false;
       })
 
       .addCase(deleteLink.fulfilled, (state, action) => {
