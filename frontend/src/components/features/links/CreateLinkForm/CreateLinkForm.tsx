@@ -14,9 +14,9 @@ import { useEffect, useState } from 'react';
 import { Loader } from 'lucide-react';
 import { Message, MessageContent } from '../../../shared/Message/Message';
 import { createLinkSchema } from '../validation/createLinkSchema';
-import { ApiData } from '../../../../types/ApiData';
-import { CreateLinkResponse } from '../types/LinksResponse';
-import { createLink } from '../api';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../../../app/storage/storage';
+import { createLink } from '../../../../app/storage/slices/linksSlice';
 
 type FormFields = {
   title?: string;
@@ -24,10 +24,11 @@ type FormFields = {
 };
 
 export default function CreateLinkForm({ className, ...props }: FormProps) {
-  const [messageData, setMessageData] =
-    useState<ApiData<CreateLinkResponse> | null>(null);
+  const [isSuccessfulSent, setIsSuccessfulSent] = useState(false);
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { isLoading, error } = useSelector((state: RootState) => state.links);
+
+  const dispatch = useDispatch<AppDispatch>();
 
   const {
     register,
@@ -38,17 +39,20 @@ export default function CreateLinkForm({ className, ...props }: FormProps) {
   });
 
   useEffect(() => {
-    if (messageData?.successFetch && !('statusCode' in messageData.fetchData)) {
+    if (isSuccessfulSent) {
       setTimeout(() => {
         window.location.reload();
       }, 500);
     }
-  }, [messageData]);
+  }, [isSuccessfulSent]);
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
-    setIsLoading(true);
-    setMessageData(await createLink(data.originalLink, data.title));
-    setIsLoading(false);
+    const result = await dispatch(
+      createLink({ originalLink: data.originalLink, title: data.title }),
+    );
+    if (createLink.fulfilled.match(result)) {
+      setIsSuccessfulSent(true);
+    }
   };
 
   return (
@@ -80,24 +84,14 @@ export default function CreateLinkForm({ className, ...props }: FormProps) {
           <p className={styles.error}>{errors.originalLink.message}</p>
         )}
       </FormItem>
-      {messageData?.successFetch &&
-        ('statusCode' in messageData.fetchData ? (
-          <Message className={styles.failedSubmitResult}>
-            <MessageContent>
-              {messageData.fetchData.description ||
-                messageData.fetchData.message}
-            </MessageContent>
-          </Message>
-        ) : (
-          <Message className={styles.successSubmitResult}>
-            <MessageContent>
-              Link {messageData.fetchData.shortLinkId} was created.
-            </MessageContent>
-          </Message>
-        ))}
-      {messageData && !messageData.successFetch && (
+      {error && (
         <Message className={styles.failedSubmitResult}>
-          <MessageContent>{messageData.message}</MessageContent>
+          <MessageContent>{error}</MessageContent>
+        </Message>
+      )}
+      {isSuccessfulSent && (
+        <Message className={styles.successSubmitResult}>
+          <MessageContent>Link was created.</MessageContent>
         </Message>
       )}
       <PrimaryButton

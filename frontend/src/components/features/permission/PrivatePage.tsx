@@ -6,9 +6,9 @@ export default function PrivatePage({
 }: {
   children: React.ReactNode;
 }) {
-  const { user } = useUser();
+  const { user, isLoading } = useUser();
 
-  if (!user) {
+  if (!user && !isLoading) {
     return (
       <ErrorPage
         statusCode={401}
