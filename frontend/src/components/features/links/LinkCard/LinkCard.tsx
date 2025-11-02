@@ -10,8 +10,13 @@ import {
 } from '../../../shared/Card/Card';
 import { Link } from '../types/Link';
 import { appConfig } from '../../../../configuration/appConfig';
+import { deleteLink } from '../../../../app/storage/slices/linksSlice';
+import { AppDispatch } from '../../../../app/storage/storage';
+import { useDispatch } from 'react-redux';
 
 export default function LinkCard({ link }: { link: Link }) {
+  const dispatch = useDispatch<AppDispatch>();
+
   const shortLinkUrl = `${appConfig.serverUrl}/links/${link.shortLinkId}`;
 
   return (
@@ -54,7 +59,10 @@ export default function LinkCard({ link }: { link: Link }) {
           <Button className={styles.actionButton}>
             <ChartColumn className={styles.actionIcon} />
           </Button>
-          <Button className={styles.actionButton}>
+          <Button
+            onClick={() => dispatch(deleteLink(link.shortLinkId))}
+            className={styles.actionButton}
+          >
             <Trash className={styles.actionIcon} />
           </Button>
         </div>

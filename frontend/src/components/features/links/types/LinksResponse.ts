@@ -10,3 +10,7 @@ export type GetLinksResponse = { links: Array<Link> } | ErrorApiResponseData;
 export type UpdateLinkResponse =
   | Omit<Link, 'id' | 'url' | 'shortLinkId' | 'createdAt' | 'audienceCount'>
   | ErrorApiResponseData;
+
+export type DeleteLinkResponse =
+  | Omit<Link, 'title' | 'url' | 'shortLinkId' | 'createdAt' | 'audienceCount'>
+  | ErrorApiResponseData;
