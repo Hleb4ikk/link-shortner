@@ -26,7 +26,7 @@ type FormFields = {
 export default function CreateLinkForm({ className, ...props }: FormProps) {
   const [isSuccessfulSent, setIsSuccessfulSent] = useState(false);
 
-  const { isLoading, error } = useSelector((state: RootState) => state.links);
+  const { isCreating, error } = useSelector((state: RootState) => state.links);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -58,7 +58,7 @@ export default function CreateLinkForm({ className, ...props }: FormProps) {
   return (
     <Form
       onSubmit={handleSubmit(onSubmit)}
-      formState={{ isLoading: isLoading }}
+      formState={{ isLoading: isCreating }}
       className={`${styles.authForm} ${className} `}
       {...props}
     >
@@ -95,11 +95,11 @@ export default function CreateLinkForm({ className, ...props }: FormProps) {
         </Message>
       )}
       <PrimaryButton
-        className={`${styles.submitButton} ${isLoading ? styles.loadingSubmitButton : ''}`}
-        disabled={isLoading}
+        className={`${styles.submitButton} ${isCreating ? styles.loadingSubmitButton : ''}`}
+        disabled={isCreating}
       >
         Create Link
-        {isLoading && <Loader className={styles.loader} />}
+        {isCreating && <Loader className={styles.loader} />}
       </PrimaryButton>
     </Form>
   );

@@ -1,6 +1,4 @@
-import { Search } from 'lucide-react';
 import styles from './LinksPage.module.css';
-import Input from '../../shared/Input/Input';
 
 import CreateLinkAlert from '../../features/links/CreateLinkAlert/CreateLinkAlert';
 import { useEffect } from 'react';
@@ -10,6 +8,7 @@ import LinksSectionContentSkeleton from '../../skeletons/LinksSectionContentSkel
 import { fetchLinks } from '../../../app/storage/slices/linksSlice';
 import { AppDispatch, RootState } from '../../../app/storage/storage';
 import { useDispatch, useSelector } from 'react-redux';
+import Search from '../../shared/Search/Search';
 
 export default function LinksPage() {
   const dispatch = useDispatch<AppDispatch>();
@@ -32,10 +31,7 @@ export default function LinksPage() {
           <CreateLinkAlert />
         </section>
         <section className={`${styles.section} ${styles.searchSection}`}>
-          <div className={`${styles.searchContainer}`}>
-            <Input placeholder="Search links..." className={styles.search} />
-            <Search className={styles.searchIcon} />
-          </div>
+          <Search placeholder="Search links..." />
         </section>
 
         <section className={`${styles.section} ${styles.linksSection}`}>

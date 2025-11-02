@@ -17,23 +17,8 @@
 .plus {
   width: 18px;
 }
-.search {
-  padding-left: 38px;
-}
 
 .searchSection {
-}
-
-.searchContainer {
-  max-width: 500px;
-  height: 42px;
-}
-.searchIcon {
-  position: relative;
-  color: var(--placeholder-color);
-  width: 18px;
-  top: -33px;
-  left: 10px;
 }
 
 .sectionHeader {

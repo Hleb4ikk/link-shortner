@@ -1,0 +1,14 @@
+.searchContainer {
+  max-width: 500px;
+  height: 42px;
+}
+.search {
+  padding-left: 38px;
+}
+.searchIcon {
+  position: relative;
+  color: var(--placeholder-color);
+  width: 18px;
+  top: -33px;
+  left: 10px;
+}
