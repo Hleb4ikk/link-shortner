@@ -1,7 +1,7 @@
 import {
   createLinkHandler,
   deleteLinkHandler,
-  getAllUserLinksHandler,
+  getLinksPageHandler,
   getLinkAudienceHandler,
   getLinkHandler,
   updateLinkHandler,
@@ -13,7 +13,7 @@ import { permissionLinksControl } from 'middlewares/permissionLinksControl';
 const linksRoute = express.Router();
 
 linksRoute.post('/', authGuard, createLinkHandler);
-linksRoute.get('/', authGuard, getAllUserLinksHandler);
+linksRoute.get('/', authGuard, getLinksPageHandler);
 linksRoute.get(
   '/:linkId/audience',
   authGuard,

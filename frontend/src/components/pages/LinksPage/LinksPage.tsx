@@ -1,7 +1,7 @@
 import styles from './LinksPage.module.css';
 
 import CreateLinkAlert from '../../features/links/CreateLinkAlert/CreateLinkAlert';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import LinkCard from '../../features/links/LinkCard/LinkCard';
 import LinksSectionContentSkeleton from '../../skeletons/LinksSectionContentSkeleton/LinksSectionSkeleton';
@@ -9,14 +9,37 @@ import { fetchLinks } from '../../../app/storage/slices/linksSlice';
 import { AppDispatch, RootState } from '../../../app/storage/storage';
 import { useDispatch, useSelector } from 'react-redux';
 import Search from '../../shared/Search/Search';
+import Pagination from '../../shared/Pagination/Pagination';
+import { useSearchParams } from 'react-router-dom';
+import { setCurrentPage } from '../../../app/storage/slices/paginationSlice';
 
 export default function LinksPage() {
   const dispatch = useDispatch<AppDispatch>();
-  const { data, isLoading } = useSelector((state: RootState) => state.links);
+
+  const { currentPage } = useSelector((state: RootState) => state.pagination);
+
+  const { pages, totalPages, isLoading } = useSelector(
+    (state: RootState) => state.links,
+  );
+  const [linksSearch, setLinksSearch] = useState<string | undefined>(undefined);
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    dispatch(fetchLinks());
-  }, [dispatch]);
+    const rawSearch = searchParams.get('search')?.trim();
+    const rawPage = Number(searchParams.get('page')?.trim());
+    const page = !rawPage || isNaN(rawPage) ? 1 : rawPage;
+
+    if (rawSearch !== linksSearch) {
+      dispatch(fetchLinks({ currentPage: 1, searchQuery: rawSearch }));
+      dispatch(setCurrentPage(1));
+      setLinksSearch(rawSearch);
+    } else {
+      dispatch(fetchLinks({ currentPage: page, searchQuery: rawSearch }));
+      dispatch(setCurrentPage(page));
+    }
+  }, [searchParams]);
+
+  const pageContent = pages[currentPage];
 
   return (
     <>
@@ -35,9 +58,15 @@ export default function LinksPage() {
         </section>
 
         <section className={`${styles.section} ${styles.linksSection}`}>
-          {data &&
-            data.map((link, index) => <LinkCard link={link} key={index} />)}
+          {!isLoading &&
+            pageContent &&
+            pageContent.map((link, index) => (
+              <LinkCard link={link} key={index} />
+            ))}
           {isLoading && <LinksSectionContentSkeleton />}
+        </section>
+        <section className={`${styles.section} ${styles.paginationSection} `}>
+          <Pagination totalPages={totalPages} />
         </section>
       </div>
     </>

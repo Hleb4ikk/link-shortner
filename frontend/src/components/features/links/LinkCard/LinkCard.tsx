@@ -11,17 +11,19 @@ import {
 import { Link } from '../types/Link';
 import { appConfig } from '../../../../configuration/appConfig';
 import { deleteLink } from '../../../../app/storage/slices/linksSlice';
-import { AppDispatch } from '../../../../app/storage/storage';
-import { useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from '../../../../app/storage/storage';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function LinkCard({ link }: { link: Link }) {
   const dispatch = useDispatch<AppDispatch>();
+
+  const { currentPage } = useSelector((state: RootState) => state.pagination);
 
   const shortLinkUrl = `${appConfig.serverUrl}/links/${link.shortLinkId}`;
 
   return (
     <Card>
-      <CardHeader>{link.title || 'Untitled'}</CardHeader>
+      <CardHeader>{link.title}</CardHeader>
       <CardContent>
         <div className={styles.linkInfoContainer}>
           <span className={styles.shortLink}>{shortLinkUrl}</span>
@@ -60,7 +62,9 @@ export default function LinkCard({ link }: { link: Link }) {
             <ChartColumn className={styles.actionIcon} />
           </Button>
           <Button
-            onClick={() => dispatch(deleteLink(link.shortLinkId))}
+            onClick={() =>
+              dispatch(deleteLink({ currentPage, linkId: link.shortLinkId }))
+            }
             className={styles.actionButton}
           >
             <Trash className={styles.actionIcon} />

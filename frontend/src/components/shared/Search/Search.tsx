@@ -22,7 +22,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
   }, []);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    const value = e.target.value;
+    const value = e.target.value.trim();
 
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);

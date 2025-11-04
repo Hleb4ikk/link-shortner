@@ -26,7 +26,9 @@ type FormFields = {
 export default function CreateLinkForm({ className, ...props }: FormProps) {
   const [isSuccessfulSent, setIsSuccessfulSent] = useState(false);
 
-  const { isCreating, error } = useSelector((state: RootState) => state.links);
+  const { isCreating, createError } = useSelector(
+    (state: RootState) => state.links,
+  );
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -48,7 +50,10 @@ export default function CreateLinkForm({ className, ...props }: FormProps) {
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     const result = await dispatch(
-      createLink({ originalLink: data.originalLink, title: data.title }),
+      createLink({
+        originalLink: data.originalLink,
+        title: data.title || 'untitled',
+      }),
     );
     if (createLink.fulfilled.match(result)) {
       setIsSuccessfulSent(true);
@@ -84,9 +89,9 @@ export default function CreateLinkForm({ className, ...props }: FormProps) {
           <p className={styles.error}>{errors.originalLink.message}</p>
         )}
       </FormItem>
-      {error && (
+      {createError && (
         <Message className={styles.failedSubmitResult}>
-          <MessageContent>{error}</MessageContent>
+          <MessageContent>{createError}</MessageContent>
         </Message>
       )}
       {isSuccessfulSent && (
