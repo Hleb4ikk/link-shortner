@@ -2,36 +2,44 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
   createUserLink,
   deleteUserLink,
-  getUserLinks,
+  getLinksPage,
 } from '../../../components/features/links/api';
 import { Link } from '../../../components/features/links/types/Link';
 import { ErrorApiResponseData } from '../../../types/ErrorApiResponseData';
 import { CreateLinkResponse } from '../../../components/features/links/types/LinksResponse';
 
-export const fetchLinks = createAsyncThunk<
-  { links: Link[] },
-  void,
-  { rejectValue: ErrorApiResponseData }
->('links/fetchLinks', async (_, { rejectWithValue }) => {
-  const response = await getUserLinks();
+type FetchLinksArgs = {
+  currentPage: number;
+  searchQuery?: string;
+};
 
-  if ('statusCode' in response) {
-    return rejectWithValue(response);
-  }
-  return response;
-});
+export const fetchLinks = createAsyncThunk<
+  { currentPage: number; totalPages: number; links: Link[] },
+  FetchLinksArgs,
+  { rejectValue: ErrorApiResponseData }
+>(
+  'links/fetchLinks',
+  async ({ currentPage, searchQuery }, { rejectWithValue }) => {
+    const response = await getLinksPage(currentPage, undefined, searchQuery);
+    if ('statusCode' in response) {
+      return rejectWithValue(response);
+    }
+
+    return { currentPage, ...response };
+  },
+);
 
 export const deleteLink = createAsyncThunk<
-  { id: string },
-  string,
+  { currentPage: number; id: string },
+  { currentPage: number; linkId: string },
   { rejectValue: ErrorApiResponseData }
->('links/deleteLink', async (id, { rejectWithValue }) => {
-  const response = await deleteUserLink(id);
+>('links/deleteLink', async ({ currentPage, linkId }, { rejectWithValue }) => {
+  const response = await deleteUserLink(linkId);
 
   if ('statusCode' in response) {
     return rejectWithValue(response);
   }
-  return response;
+  return { currentPage, ...response };
 });
 
 export const createLink = createAsyncThunk<
@@ -50,29 +58,40 @@ export const createLink = createAsyncThunk<
 const links = createSlice({
   name: 'links',
   initialState: {
+    deleteError: null,
+
     isCreating: false,
+    createError: null,
+
+    totalPages: 1,
+    pages: {} as Record<number, Link[]>,
     isLoading: false,
-    data: null,
-    error: null,
+    fetchError: null,
   } as {
+    deleteError: string | null;
+
     isCreating: boolean;
+    createError: string | null;
+
+    totalPages: number;
+    pages: Record<number, Link[]>;
     isLoading: boolean;
-    data: Link[] | null;
-    error: string | null;
+    fetchError: string | null;
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchLinks.pending, (state) => {
         state.isLoading = true;
-        state.error = null;
+        state.fetchError = null;
       })
       .addCase(fetchLinks.fulfilled, (state, action) => {
-        state.data = action.payload.links;
+        state.pages[action.payload.currentPage] = action.payload.links;
+        state.totalPages = action.payload.totalPages;
         state.isLoading = false;
       })
       .addCase(fetchLinks.rejected, (state, action) => {
-        state.error =
+        state.fetchError =
           action.payload?.description ||
           action.payload?.message ||
           'Error getting links.';
@@ -80,10 +99,10 @@ const links = createSlice({
       })
       .addCase(createLink.pending, (state) => {
         state.isCreating = true;
-        state.error = null;
+        state.createError = null;
       })
       .addCase(createLink.rejected, (state, action) => {
-        state.error =
+        state.createError =
           action.payload?.description ||
           action.payload?.message ||
           'Error creating link.';
@@ -91,19 +110,19 @@ const links = createSlice({
       })
 
       .addCase(deleteLink.fulfilled, (state, action) => {
-        if (state.data) {
-          state.data = state.data.filter(
+        const page = state.pages[action.payload.currentPage];
+        if (page) {
+          state.pages[action.payload.currentPage] = page.filter(
             (link) => link.id !== action.payload.id,
           );
         }
       })
       .addCase(deleteLink.rejected, (state, action) => {
-        state.error =
+        state.deleteError =
           action.payload?.description ||
           action.payload?.message ||
           'Error deleting links.';
       });
   },
 });
-
 export default links.reducer;

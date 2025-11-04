@@ -4,19 +4,44 @@ import { attempts } from 'constants/base-58-generator-settings';
 import { db } from 'database/db';
 import { audienceTable } from 'database/schemas/audienceTable';
 import { linksTable } from 'database/schemas/linksTable';
-import { count, eq } from 'drizzle-orm';
+import { and, count, eq, ilike } from 'drizzle-orm';
 import {
   BadRequestException,
   InternalServerErrorException,
   NotFoundException,
 } from 'types/exceptions/HttpExceptions';
+import { GetLinkDto } from 'types/GetLinkDto';
 import { LinkDto } from 'types/LinkDto';
 import { UpdateLinkDto } from 'types/UpdateLinkDto';
 import { generateShortId } from 'utils/generate-shortId';
 
-const getAllUserLinks = async (userId: string) => {
+const getLinksPage = async (userId: string, data: unknown) => {
+  const getLinkDto = plainToInstance(GetLinkDto, data);
+  const errors = await validate(getLinkDto);
+  if (errors.length > 0) {
+    throw new BadRequestException('Invalid data');
+  }
+
+  const { page, limit = 5, searchQuery } = getLinkDto;
+
+  let total;
   let links;
+
   try {
+    total = (
+      await db
+        .select({ total: count(linksTable.id) })
+        .from(linksTable)
+        .where(
+          and(
+            eq(linksTable.ownerId, userId),
+            searchQuery
+              ? ilike(linksTable.title, `%${searchQuery}%`)
+              : undefined,
+          ),
+        )
+    )[0].total;
+
     links = await db
       .select({
         id: linksTable.id,
@@ -27,17 +52,23 @@ const getAllUserLinks = async (userId: string) => {
         audienceCount: count(audienceTable.id),
       })
       .from(linksTable)
+      .offset((page - 1) * limit)
+      .limit(limit)
       .leftJoin(
         audienceTable,
         eq(audienceTable.shortLinkId, linksTable.shortLinkId),
       )
-      .where(eq(linksTable.ownerId, userId))
+      .where(
+        and(
+          eq(linksTable.ownerId, userId),
+          searchQuery ? ilike(linksTable.title, `%${searchQuery}%`) : undefined,
+        ),
+      )
       .groupBy(linksTable.id);
-  } catch (e) {
-    console.log(e);
+  } catch {
     throw new InternalServerErrorException('Failed to fetch links');
   }
-  return links;
+  return { totalPages: Math.ceil(total / limit), links };
 };
 
 const getLinkByShortId = async (shortId: string) => {
@@ -149,10 +180,4 @@ const updateLink = async (shortLinkId: string, updatedLink: unknown) => {
   }
   return link;
 };
-export {
-  getLinkByShortId,
-  createLink,
-  getAllUserLinks,
-  deleteLink,
-  updateLink,
-};
+export { getLinkByShortId, createLink, getLinksPage, deleteLink, updateLink };

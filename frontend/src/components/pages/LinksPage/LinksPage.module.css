@@ -18,9 +18,6 @@
   width: 18px;
 }
 
-.searchSection {
-}
-
 .sectionHeader {
   font-weight: 600;
 }
@@ -36,4 +33,8 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+.paginationSection {
+  display: flex;
+  justify-content: center;
 }

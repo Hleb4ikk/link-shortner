@@ -20,14 +20,33 @@ const createUserLink = async (
   return data;
 };
 
-const getUserLinks = async (): Promise<GetLinksResponse> => {
-  const response = await fetch('http://localhost:8080/links', {
-    headers: {
-      'Content-Type': 'application/json',
+const getLinksPage = async (
+  page: number,
+  limit?: number,
+  searchQuery?: string,
+): Promise<GetLinksResponse> => {
+  const searchParams = new URLSearchParams();
+
+  searchParams.set('page', page.toString());
+
+  if (limit) {
+    searchParams.set('limit', page.toString());
+  }
+  if (searchQuery) {
+    searchParams.set('search', searchQuery);
+  }
+
+  const response = await fetch(
+    `http://localhost:8080/links?${searchParams.toString()}`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+
+      method: 'GET',
+      credentials: 'include',
     },
-    method: 'GET',
-    credentials: 'include',
-  });
+  );
 
   const data: GetLinksResponse = await response.json();
   return data;
@@ -44,4 +63,4 @@ const deleteUserLink = async (id: string): Promise<DeleteLinkResponse> => {
   const data: DeleteLinkResponse = await response.json();
   return data;
 };
-export { createUserLink, getUserLinks, deleteUserLink };
+export { createUserLink, getLinksPage, deleteUserLink };

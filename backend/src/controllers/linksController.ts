@@ -4,7 +4,7 @@ import { createAudience, getAudienceByLinkId } from 'services/audienceService';
 import {
   createLink,
   deleteLink,
-  getAllUserLinks,
+  getLinksPage,
   getLinkByShortId,
   updateLink,
 } from 'services/linksService';
@@ -37,9 +37,13 @@ const createLinkHandler = async (req: Request, res: Response) => {
   res.status(HttpStatus.CREATED).json({ shortId });
 };
 
-const getAllUserLinksHandler = async (req: Request, res: Response) => {
-  const links = await getAllUserLinks((req.user as { id: string }).id);
-  res.status(HttpStatus.OK).json({ links });
+const getLinksPageHandler = async (req: Request, res: Response) => {
+  const links = await getLinksPage((req.user as { id: string }).id, {
+    page: req.query.page,
+    limit: req.query.limit,
+    searchQuery: req.query.search,
+  });
+  res.status(HttpStatus.OK).json(links);
 };
 
 const deleteLinkHandler = async (req: Request, res: Response) => {
@@ -55,7 +59,7 @@ const updateLinkHandler = async (req: Request, res: Response) => {
 export {
   getLinkHandler,
   createLinkHandler,
-  getAllUserLinksHandler,
+  getLinksPageHandler,
   getLinkAudienceHandler,
   deleteLinkHandler,
   updateLinkHandler,
