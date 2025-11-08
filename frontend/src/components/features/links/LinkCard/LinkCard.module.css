@@ -3,11 +3,19 @@
   align-items: center;
   gap: 10px;
 }
+.fullUrl {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 .shortLink {
   color: rgb(var(--primary-color));
   border-radius: 5px;
   padding: 8.5px 10px;
   background-color: rgba(var(--primary-color), 0.2);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .copyButton {
   padding: 10px;

@@ -25,7 +25,7 @@
 }
 .originalLink {
   height: 2rem;
-  width: 400px;
+  max-width: 400px;
   border-radius: 5px;
   background: linear-gradient(90deg, #bbbbbb 25%, #888888 50%, #bbbbbb 75%);
   background-size: 200% 200%;
@@ -33,7 +33,7 @@
 }
 .shortLink {
   height: 2rem;
-  width: 450px;
+  max-width: 450px;
   border-radius: 5px;
   background: linear-gradient(90deg, #bbbbbb 25%, #888888 50%, #bbbbbb 75%);
   background-size: 200% 200%;

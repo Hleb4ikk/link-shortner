@@ -12,7 +12,7 @@
   justify-content: center;
   align-items: center;
   height: 1000px;
-  width: 700px;
+  max-width: 700px;
   gap: 30px;
 }
 .shortenSectionContainer {
@@ -31,14 +31,14 @@
 .slogan {
   text-align: center;
   font-size: 4rem;
-  width: 500px;
+  max-width: 500px;
   color: var(--text-color-1);
 }
 .sloganSecondPart {
   color: rgb(var(--primary-color));
 }
 .sloganDescription {
-  width: 650px;
+  max-width: 650px;
   text-align: center;
   font-size: 1.25rem;
   color: var(--text-color-2);
@@ -86,7 +86,7 @@
   color: var(--text-color-2);
   text-align: center;
   font-size: 1.25rem;
-  width: 700px;
+  max-width: 700px;
 }
 
 /*card*/
@@ -163,4 +163,15 @@
   align-items: center;
   height: 40px;
   gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .featuresContainer {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .featuresContainer {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
 }
