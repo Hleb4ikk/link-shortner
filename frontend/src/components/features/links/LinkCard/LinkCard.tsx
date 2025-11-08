@@ -13,11 +13,12 @@ import { appConfig } from '../../../../configuration/appConfig';
 import { deleteLink } from '../../../../app/storage/slices/linksSlice';
 import { AppDispatch, RootState } from '../../../../app/storage/storage';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 export default function LinkCard({ link }: { link: Link }) {
   const dispatch = useDispatch<AppDispatch>();
-
-  const { currentPage } = useSelector((state: RootState) => state.pagination);
+  const navigate = useNavigate();
+  const { currentPage } = useSelector((state: RootState) => state.links);
 
   const shortLinkUrl = `${appConfig.serverUrl}/links/${link.shortLinkId}`;
 
@@ -58,7 +59,12 @@ export default function LinkCard({ link }: { link: Link }) {
               Clicks
             </span>
           </div>
-          <Button className={styles.actionButton}>
+          <Button
+            className={styles.actionButton}
+            onClick={() => {
+              navigate(`/links/${link.shortLinkId}`);
+            }}
+          >
             <ChartColumn className={styles.actionIcon} />
           </Button>
           <Button

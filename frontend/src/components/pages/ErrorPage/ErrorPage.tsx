@@ -8,14 +8,14 @@ export default function ErrorPage({
   statusCode,
   description,
 }: {
-  statusCode: number;
+  statusCode?: number;
   description: React.ReactNode;
 }) {
   const navigate = useNavigate();
 
   return (
     <section className={styles.notFoundSection}>
-      <h1 className={styles.code}>{statusCode}</h1>
+      <h1 className={styles.code}>{statusCode || 'Error'}</h1>
       <p className={styles.description}>{description}</p>
       <PrimaryButton
         onClick={() => navigate(-1)}

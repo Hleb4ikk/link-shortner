@@ -1,5 +1,5 @@
 import { useUser } from '../../features/user/UserProvider';
-import ErrorPage from '../../pages/ErrorPagePage/ErrorPage';
+import ErrorPage from '../../pages/ErrorPage/ErrorPage';
 
 export default function PrivatePage({
   children,

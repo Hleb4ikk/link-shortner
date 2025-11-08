@@ -5,13 +5,13 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AppLayout from '../components/layout/AppLayout';
 import HomePage from '../components/pages/HomePage/HomePage';
 import LinksPage from '../components/pages/LinksPage/LinksPage';
-import AudiencePage from '../components/pages/AudiencePage/AudiencePage';
 import UserProvider from '../components/features/user/UserProvider';
 import { User } from '../components/features/user/user';
 import { useEffect, useState } from 'react';
 import { getMe } from '../components/features/user/api';
 import PrivatePage from '../components/features/permission/PrivatePage';
-import ErrorPage from '../components/pages/ErrorPagePage/ErrorPage';
+import ErrorPage from '../components/pages/ErrorPage/ErrorPage';
+import LinksDetailsPage from '../components/pages/LinkDetailsPage/LinkDetailsPage';
 
 const routes = [
   { path: '/', element: <HomePage /> },
@@ -23,7 +23,7 @@ const routes = [
       </PrivatePage>
     ),
   },
-  { path: '/links/:id', element: <AudiencePage /> },
+  { path: '/links/:id', element: <LinksDetailsPage /> },
   {
     path: '*',
     element: (

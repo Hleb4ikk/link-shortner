@@ -1,3 +1,4 @@
+import { appConfig } from '../../../configuration/appConfig';
 import { ApiData } from '../../../types/ApiData';
 
 import { AuthApiResponseData } from './types';
@@ -9,7 +10,7 @@ const login = async (
   let response;
 
   try {
-    response = await fetch('http://localhost:8080/auth/login', {
+    response = await fetch(`${appConfig.serverUrl}/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -36,7 +37,7 @@ const register = async (
   let response;
 
   try {
-    response = await fetch('http://localhost:8080/auth/register', {
+    response = await fetch(`${appConfig.serverUrl}/auth/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -59,7 +60,7 @@ const register = async (
 const logout = async (): Promise<ApiData<AuthApiResponseData>> => {
   let response;
   try {
-    response = await fetch('http://localhost:8080/auth/logout', {
+    response = await fetch(`${appConfig.serverUrl}/auth/logout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -80,7 +81,7 @@ const changePassword = async (
 ): Promise<ApiData<AuthApiResponseData>> => {
   let response;
   try {
-    response = await fetch('http://localhost:8080/auth/password', {
+    response = await fetch(`${appConfig.serverUrl}/auth/password`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

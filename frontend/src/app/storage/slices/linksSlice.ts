@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   createUserLink,
   deleteUserLink,
@@ -30,8 +30,8 @@ export const fetchLinks = createAsyncThunk<
 );
 
 export const deleteLink = createAsyncThunk<
-  { currentPage: number; id: string },
-  { currentPage: number; linkId: string },
+  { currentPage?: number; id: string },
+  { currentPage?: number; linkId: string },
   { rejectValue: ErrorApiResponseData }
 >('links/deleteLink', async ({ currentPage, linkId }, { rejectWithValue }) => {
   const response = await deleteUserLink(linkId);
@@ -64,6 +64,7 @@ const links = createSlice({
     createError: null,
 
     totalPages: 1,
+    currentPage: 1,
     pages: {} as Record<number, Link[]>,
     isLoading: false,
     fetchError: null,
@@ -74,27 +75,38 @@ const links = createSlice({
     createError: string | null;
 
     totalPages: number;
+    currentPage: number;
     pages: Record<number, Link[]>;
     isLoading: boolean;
     fetchError: string | null;
   },
-  reducers: {},
+  reducers: {
+    increment: (state) => {
+      state.currentPage++;
+    },
+    decrement: (state) => {
+      state.currentPage--;
+    },
+    setCurrentPage: (state, action: PayloadAction<number>) => {
+      state.currentPage = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchLinks.pending, (state) => {
         state.isLoading = true;
         state.fetchError = null;
       })
-      .addCase(fetchLinks.fulfilled, (state, action) => {
-        state.pages[action.payload.currentPage] = action.payload.links;
-        state.totalPages = action.payload.totalPages;
-        state.isLoading = false;
-      })
       .addCase(fetchLinks.rejected, (state, action) => {
         state.fetchError =
           action.payload?.description ||
           action.payload?.message ||
           'Error getting links.';
+        state.isLoading = false;
+      })
+      .addCase(fetchLinks.fulfilled, (state, action) => {
+        state.pages[action.payload.currentPage] = action.payload.links;
+        state.totalPages = action.payload.totalPages;
         state.isLoading = false;
       })
       .addCase(createLink.pending, (state) => {
@@ -110,11 +122,13 @@ const links = createSlice({
       })
 
       .addCase(deleteLink.fulfilled, (state, action) => {
-        const page = state.pages[action.payload.currentPage];
-        if (page) {
-          state.pages[action.payload.currentPage] = page.filter(
-            (link) => link.id !== action.payload.id,
-          );
+        if (action.payload.currentPage) {
+          const page = state.pages[action.payload.currentPage];
+          if (page) {
+            state.pages[action.payload.currentPage] = page.filter(
+              (link) => link.id !== action.payload.id,
+            );
+          }
         }
       })
       .addCase(deleteLink.rejected, (state, action) => {
@@ -126,3 +140,4 @@ const links = createSlice({
   },
 });
 export default links.reducer;
+export const { setCurrentPage, increment, decrement } = links.actions;

@@ -6,7 +6,7 @@ export default function extractIpFromRequestHeaders(req: Request) {
   const header = possibleHeaders.find((header) => req.headers[header]);
 
   if (!header) {
-    return null;
+    return req.socket.remoteAddress || null;
   }
 
   return req.headers[header] || null;
