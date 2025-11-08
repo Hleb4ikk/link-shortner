@@ -2,6 +2,7 @@ import { plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
 import { db } from 'database/db';
 import { audienceTable } from 'database/schemas/audienceTable';
+import { linksTable } from 'database/schemas/linksTable';
 import { count, eq } from 'drizzle-orm';
 import { logError } from 'logger';
 import { AudienceDto } from 'types/AudienceDto';
@@ -25,6 +26,7 @@ const getAudienceByLinkId = async (shortLinkId: string, data: unknown) => {
 
   let audience;
   let total;
+  let link;
   try {
     total = (
       await db
@@ -43,12 +45,23 @@ const getAudienceByLinkId = async (shortLinkId: string, data: unknown) => {
       })
       .from(audienceTable)
       .where(eq(audienceTable.shortLinkId, shortLinkId))
-      .offset((page - 1) * limit)
-      .limit(limit);
+      .offset((page - 1) * limit);
+
+    link = (
+      await db
+        .select({
+          title: linksTable.title,
+          shortLinkId: linksTable.shortLinkId,
+          url: linksTable.url,
+          createdAt: linksTable.createdAt,
+        })
+        .from(linksTable)
+        .where(eq(linksTable.shortLinkId, shortLinkId))
+    )[0];
   } catch {
     throw new InternalServerErrorException('Failed to load link audience.');
   }
-  return { totalPages: Math.ceil(total / limit), audience };
+  return { totalPages: Math.ceil(total / limit), audience, link };
 };
 
 const createAudience = async (data: unknown) => {

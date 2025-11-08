@@ -29,9 +29,8 @@ export default function LinksDetailsPage() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  const { pages, fetchError, isLoading, currentPage, totalPages } = useSelector(
-    (state: RootState) => state.linksDetails,
-  );
+  const { pages, link, fetchError, isLoading, currentPage, totalPages } =
+    useSelector((state: RootState) => state.linksDetails);
 
   const params = useParams();
   const [searchParams] = useSearchParams();
@@ -70,7 +69,9 @@ export default function LinksDetailsPage() {
       <div className={styles.managementSectionContainer}>
         <section className={`${styles.section} ${styles.managementSection}`}>
           <div className={styles.sectionDescriptionContainer}>
-            <h1 className={styles.sectionHeader}>{params.id} details</h1>
+            <h1 className={styles.sectionHeader}>
+              {params.id}({link?.title}) details
+            </h1>
             <p className={styles.sectionDescription}>
               Manage and track all your shortened links
             </p>

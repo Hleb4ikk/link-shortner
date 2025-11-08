@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ErrorApiResponseData } from '../../../types/ErrorApiResponseData';
 import { fetchLinksDetails } from '../../../components/features/linksDetails/api';
 import { Audience } from '../../../components/features/linksDetails/types/Audience';
+import { Link } from '../../../components/features/links/types/Link';
 
 type FetchLinkDetailsArgs = {
   linkId: string;
@@ -10,7 +11,12 @@ type FetchLinkDetailsArgs = {
 };
 
 export const getLinksDetails = createAsyncThunk<
-  { currentPage: number; totalPages: number; audience: Audience[] },
+  {
+    currentPage: number;
+    totalPages: number;
+    audience: Audience[];
+    link: Omit<Link, 'id' | 'audienceCount'>;
+  },
   FetchLinkDetailsArgs,
   { rejectValue: ErrorApiResponseData }
 >(
@@ -34,6 +40,7 @@ const linksDetails = createSlice({
     fetchError: null,
     isLoading: false,
     details: null,
+    link: null,
 
     pages: {} as Record<number, Audience[]>,
     totalPages: 1,
@@ -41,7 +48,7 @@ const linksDetails = createSlice({
   } as {
     isLoading: boolean;
     fetchError: ErrorApiResponseData | string | null;
-
+    link: Omit<Link, 'id' | 'audienceCount'> | null;
     pages: Record<number, Audience[]>;
     totalPages: number;
     currentPage: number;
@@ -70,6 +77,7 @@ const linksDetails = createSlice({
       .addCase(getLinksDetails.fulfilled, (state, action) => {
         state.pages[action.payload.currentPage] = action.payload.audience;
         state.totalPages = action.payload.totalPages;
+        state.link = action.payload.link;
         state.isLoading = false;
       });
   },
