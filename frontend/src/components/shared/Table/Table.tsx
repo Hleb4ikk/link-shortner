@@ -1,22 +1,60 @@
 import styles from './Table.module.css';
 
-function Table({ children }: { children: React.ReactNode }) {
-  return <table className={styles.table}>{children}</table>;
+function Table({
+  children,
+  className,
+}: {
+  children?: React.ReactNode;
+  className?: string;
+}) {
+  return <table className={`${styles.table} ${className}`}>{children}</table>;
 }
-function TableHead({ children }: { children: React.ReactNode }) {
-  return <thead className={styles.head}>{children}</thead>;
+function TableHead({
+  children,
+  className,
+}: {
+  children?: React.ReactNode;
+  className?: string;
+}) {
+  return <thead className={`${styles.head} ${className}`}>{children}</thead>;
 }
-function TableBody({ children }: { children: React.ReactNode }) {
-  return <tbody className={styles.tableBody}>{children}</tbody>;
+function TableBody({
+  children,
+  className,
+}: {
+  children?: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <tbody className={`${styles.tableBody} ${className}`}>{children}</tbody>
+  );
 }
-function TableHeader({ children }: { children: React.ReactNode }) {
-  return <th className={styles.tableHeader}>{children}</th>;
+function TableHeader({
+  children,
+  className,
+}: {
+  children?: React.ReactNode;
+  className?: string;
+}) {
+  return <th className={`${styles.tableHeader} ${className}`}>{children}</th>;
 }
-function TableRow({ children }: { children: React.ReactNode }) {
-  return <tr className={styles.tableRow}>{children}</tr>;
+function TableRow({
+  children,
+  className,
+}: {
+  children?: React.ReactNode;
+  className?: string;
+}) {
+  return <tr className={`${styles.tableRow} ${className}`}>{children}</tr>;
 }
-function TableData({ children }: { children: React.ReactNode }) {
-  return <td className={styles.tableData}>{children}</td>;
+function TableData({
+  children,
+  className,
+}: {
+  children?: React.ReactNode;
+  className?: string;
+}) {
+  return <td className={`${styles.tableData} ${className}`}>{children}</td>;
 }
 
 export { Table, TableHead, TableBody, TableRow, TableData, TableHeader };

@@ -23,12 +23,13 @@ import {
   TableData,
   TableHeader,
 } from '../../shared/Table/Table';
+import LinkDetailsSkeleton from '../../skeletons/LinkDetailsSkeleton/LinkDetailsSkeleton';
 
 export default function LinksDetailsPage() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  const { pages, fetchError, currentPage, totalPages } = useSelector(
+  const { pages, fetchError, isLoading, currentPage, totalPages } = useSelector(
     (state: RootState) => state.linksDetails,
   );
 
@@ -103,6 +104,7 @@ export default function LinksDetailsPage() {
             </TableHead>
             <TableBody>
               {pageContent &&
+                !isLoading &&
                 pageContent.map((audit, index) => (
                   <TableRow key={index}>
                     <TableData>{audit.ip}</TableData>
@@ -115,6 +117,7 @@ export default function LinksDetailsPage() {
                   </TableRow>
                 ))}
             </TableBody>
+            {isLoading && <LinkDetailsSkeleton />}
           </Table>
         </section>
         <section className={`${styles.section} ${styles.paginationSection} `}>

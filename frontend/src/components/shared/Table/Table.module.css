@@ -31,6 +31,7 @@
 .head:not(:last-child) {
   border-bottom: 1px solid var(--border-color);
 }
+
 .tableData:not(:last-child),
 .tableHeader:not(:last-child) {
   border-right: 1px solid var(--border-color);
