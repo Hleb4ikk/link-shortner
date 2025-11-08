@@ -44,20 +44,16 @@
   gap: 7px;
 }
 .squareAction {
-  padding: 10px;
+  padding: 10px !important;
+  height: 40px;
   width: 40px;
 }
 
 .trash {
   background-color: rgba(var(--color-alert), 0.2);
-  border: 1px solid rgb(var(--color-alert));
+  border: 1px solid rgb(var(--color-alert)) !important;
   color: rgba(var(--color-alert));
 }
 .trash:hover {
   background-color: rgba(var(--color-alert), 0.4);
-  border: 1px solid rgb(var(--color-alert));
-  color: rgba(var(--color-alert));
-}
-.section:last-child {
-  padding-bottom: 20px;
 }
