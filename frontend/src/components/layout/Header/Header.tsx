@@ -20,12 +20,9 @@ import ChangePasswordAlert from '../../features/auth/ChangePasswordAlert/ChangeP
 
 const menuItems = [
   {
-    text: 'Home',
-    path: '/',
-  },
-  {
     text: 'Links',
     path: '/links',
+    isPrivateUserItem: true,
   },
 ];
 
@@ -36,14 +33,23 @@ export default function Header() {
     <div className={styles.headerContainer}>
       <header className={styles.header}>
         <Logo />
-        <NavigationMenu>
-          {menuItems.map((item, index) => (
-            <NavigationItem key={index} to={item.path}>
-              {item.text}
-            </NavigationItem>
-          ))}
-        </NavigationMenu>
+
         <div className={styles.usersMenu}>
+          <NavigationMenu>
+            {menuItems.map((item, index) =>
+              item.isPrivateUserItem ? (
+                user && (
+                  <NavigationItem key={index} to={item.path}>
+                    {item.text}
+                  </NavigationItem>
+                )
+              ) : (
+                <NavigationItem key={index} to={item.path}>
+                  {item.text}
+                </NavigationItem>
+              ),
+            )}
+          </NavigationMenu>
           <Button className={styles.themeSwitcher}>
             <Sun className={styles.icon} />
           </Button>

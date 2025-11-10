@@ -1,5 +1,5 @@
 .tabs {
-  width: 400px; /* можно менять через проп className */
+  width: 100%; /* можно менять через проп className */
   font-family: sans-serif;
 }
 

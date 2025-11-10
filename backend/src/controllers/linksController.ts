@@ -11,12 +11,15 @@ import {
 import { HttpStatus } from 'types/HttpStatus';
 import extractIpFromRequestHeaders from 'utils/extractIpFromRequestHeaders';
 
-const getLinkAudienceHandler = async (req: Request, res: Response) => {
+const getLinkAudiencePageHandler = async (req: Request, res: Response) => {
   const shortId = req.params[slugName];
 
-  const audience = await getAudienceByLinkId(shortId);
+  const audience = await getAudienceByLinkId(shortId, {
+    page: req.query.page,
+    limit: req.query.limit,
+  });
 
-  res.status(HttpStatus.OK).json({ audience });
+  res.status(HttpStatus.OK).json(audience);
 };
 
 const getLinkHandler = async (req: Request, res: Response) => {
@@ -60,7 +63,7 @@ export {
   getLinkHandler,
   createLinkHandler,
   getLinksPageHandler,
-  getLinkAudienceHandler,
+  getLinkAudiencePageHandler,
   deleteLinkHandler,
   updateLinkHandler,
 };

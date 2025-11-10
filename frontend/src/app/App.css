@@ -25,7 +25,7 @@ li {
 
 body {
   background-color: var(--color-bg);
-  color: var(--color-text);
+  color: var(--text-color-1);
 }
 .notFoundPathName {
   font-size: 1.625rem;
@@ -33,6 +33,9 @@ body {
 }
 :root {
   --shimmer-animation: shimmer 3s linear infinite;
+
+  --skeleton-1: #f0f0f0;
+  --skeleton-2: #d8d8d8;
 
   --color-bg: #ffffff;
 
@@ -45,6 +48,10 @@ body {
   --text-color-2: #505a68;
   --text-color-3: #1f232d;
   --text-color-4: #f3f3f3;
+
+  --card-color: #1f1d23;
+
+  --input-color: #ffffff;
 
   --placeholder-color: #909090;
 
@@ -60,14 +67,31 @@ body {
 @media (prefers-color-scheme: dark) {
   :root {
     --color-bg: #121212;
-    --color-text: #e0e0e0;
 
-    --color-1: #7c3bec;
-    --color-2: #f3f3f3;
-    --color-3: #a2a19d;
-    --color-4: #43434b;
-    --color-5: #28233d;
-    --color-6: #1e2129;
+    --skeleton-1: #2a2a2a;
+    --skeleton-2: #3a3a3a;
+
+    --color-alert: 255, 80, 80; /* мягкий красный */
+    --color-success: 80, 200, 120; /* светло-зелёный */
+
+    --color-section: #1e1e1e;
+
+    --text-color-1: #f3f3f3;
+    --text-color-2: #c0c6d0;
+    --text-color-3: #e0e0e0;
+    --text-color-4: #f3f3f3;
+
+    --input-color: #1a1a1a;
+
+    --placeholder-color: #777777;
+
+    --hovered-button-color: #2a2a2a;
+    --hovered-menu-color: #2e2e2e;
+    --hovered-card-color: #262626;
+
+    --border-color: #3a3a3a;
+
+    --primary-color: 140, 100, 255; /* фиолетово-синий акцент */
   }
 }
 

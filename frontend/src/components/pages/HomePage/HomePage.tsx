@@ -1,6 +1,5 @@
 import styles from './HomePage.module.css';
 import Input from '../../shared/Input/Input';
-import Button from '../../shared/Button/Button';
 import {
   ArrowRight,
   ChartColumn,
@@ -11,6 +10,7 @@ import {
   Zap,
 } from 'lucide-react';
 import PrimaryButton from '../../shared/Button/PrimaryButton';
+import SecondaryButton from '../../shared/Button/SecondaryButton';
 
 export default function HomePage() {
   return (
@@ -151,7 +151,7 @@ export default function HomePage() {
             <PrimaryButton className={styles.startButton}>
               Get Started Free <ArrowRight />
             </PrimaryButton>
-            <Button className={styles.pricingButton}>View Pricing</Button>
+            <SecondaryButton>View Pricing</SecondaryButton>
           </div>
           <div className={styles.boastingContainer}>
             <span style={{ marginLeft: '10px' }} className={styles.boasting}>
@@ -161,11 +161,6 @@ export default function HomePage() {
           </div>
         </section>
       </div>
-      {/* <Card></Card> */}
-
-      {/* <Search></Search>
-      <Alert></Alert>
-      <Message></Message> */}
     </>
   );
 }

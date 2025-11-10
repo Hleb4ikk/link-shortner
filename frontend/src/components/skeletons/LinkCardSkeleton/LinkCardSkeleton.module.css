@@ -5,7 +5,13 @@
   width: 100%;
   height: 218px;
   border-radius: 10px;
-  background: linear-gradient(90deg, #e8e8e8 25%, #d0d0d0 50%, #e8e8e8 75%);
+  background: linear-gradient(
+    90deg,
+    var(--skeleton-1) 25%,
+    var(--skeleton-2) 50%,
+    var(--skeleton-1) 75%
+  );
+
   background-size: 200% 200%;
   animation: var(--shimmer-animation);
   padding: 21px;
@@ -14,7 +20,13 @@
   max-width: 300px;
   height: 2.5rem;
   border-radius: 5px;
-  background: linear-gradient(90deg, #bbbbbb 25%, #888888 50%, #bbbbbb 75%);
+  background: linear-gradient(
+    90deg,
+    var(--skeleton-1) 25%,
+    var(--skeleton-2) 50%,
+    var(--skeleton-1) 75%
+  );
+
   background-size: 200% 200%;
   animation: var(--shimmer-animation);
 }
@@ -25,17 +37,29 @@
 }
 .originalLink {
   height: 2rem;
-  width: 400px;
+  max-width: 400px;
   border-radius: 5px;
-  background: linear-gradient(90deg, #bbbbbb 25%, #888888 50%, #bbbbbb 75%);
+  background: linear-gradient(
+    90deg,
+    var(--skeleton-1) 25%,
+    var(--skeleton-2) 50%,
+    var(--skeleton-1) 75%
+  );
+
   background-size: 200% 200%;
   animation: var(--shimmer-animation);
 }
 .shortLink {
   height: 2rem;
-  width: 450px;
+  max-width: 450px;
   border-radius: 5px;
-  background: linear-gradient(90deg, #bbbbbb 25%, #888888 50%, #bbbbbb 75%);
+  background: linear-gradient(
+    90deg,
+    var(--skeleton-1) 25%,
+    var(--skeleton-2) 50%,
+    var(--skeleton-1) 75%
+  );
+
   background-size: 200% 200%;
   animation: var(--shimmer-animation);
 }
@@ -47,7 +71,13 @@
   height: 2rem;
   width: 2rem;
   border-radius: 5px;
-  background: linear-gradient(90deg, #bbbbbb 25%, #888888 50%, #bbbbbb 75%);
+  background: linear-gradient(
+    90deg,
+    var(--skeleton-1) 25%,
+    var(--skeleton-2) 50%,
+    var(--skeleton-1) 75%
+  );
+
   background-size: 200% 200%;
   animation: var(--shimmer-animation);
 }

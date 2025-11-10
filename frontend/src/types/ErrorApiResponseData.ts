@@ -1,5 +1,5 @@
 export type ErrorApiResponseData = {
-  statusCode: string;
+  statusCode: number;
   message: string;
   description?: string;
 };

@@ -5,20 +5,22 @@ import { useEffect, useState } from 'react';
 
 import LinkCard from '../../features/links/LinkCard/LinkCard';
 import LinksSectionContentSkeleton from '../../skeletons/LinksSectionContentSkeleton/LinksSectionSkeleton';
-import { fetchLinks } from '../../../app/storage/slices/linksSlice';
+import {
+  decrement,
+  fetchLinks,
+  increment,
+  setCurrentPage,
+} from '../../../app/storage/slices/linksSlice';
 import { AppDispatch, RootState } from '../../../app/storage/storage';
 import { useDispatch, useSelector } from 'react-redux';
 import Search from '../../shared/Search/Search';
 import Pagination from '../../shared/Pagination/Pagination';
 import { useSearchParams } from 'react-router-dom';
-import { setCurrentPage } from '../../../app/storage/slices/paginationSlice';
 
 export default function LinksPage() {
   const dispatch = useDispatch<AppDispatch>();
 
-  const { currentPage } = useSelector((state: RootState) => state.pagination);
-
-  const { pages, totalPages, isLoading } = useSelector(
+  const { pages, totalPages, currentPage, isLoading } = useSelector(
     (state: RootState) => state.links,
   );
   const [linksSearch, setLinksSearch] = useState<string | undefined>(undefined);
@@ -66,7 +68,13 @@ export default function LinksPage() {
           {isLoading && <LinksSectionContentSkeleton />}
         </section>
         <section className={`${styles.section} ${styles.paginationSection} `}>
-          <Pagination totalPages={totalPages} />
+          <Pagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            increment={increment}
+            decrement={decrement}
+          />
         </section>
       </div>
     </>

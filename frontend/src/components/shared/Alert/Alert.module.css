@@ -1,5 +1,5 @@
 .overlay {
-  position: absolute;
+  position: fixed;
   background-color: rgba(0, 0, 0, 0.7);
   top: 0;
   left: 0;
@@ -10,6 +10,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0px 30px;
 }
 
 .alert {
@@ -21,6 +22,8 @@
   padding: 30px;
   border-radius: 10px;
   border: 1px solid var(--border-color);
+  width: 100%;
+  max-width: 500px;
 }
 .alertHeader {
   display: flex;
@@ -57,5 +60,10 @@
   }
   100% {
     opacity: 100%;
+  }
+}
+@media (max-width: 648px) {
+  .alert {
+    width: 100%;
   }
 }

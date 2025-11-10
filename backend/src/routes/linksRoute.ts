@@ -2,7 +2,7 @@ import {
   createLinkHandler,
   deleteLinkHandler,
   getLinksPageHandler,
-  getLinkAudienceHandler,
+  getLinkAudiencePageHandler,
   getLinkHandler,
   updateLinkHandler,
 } from 'controllers/linksController';
@@ -18,7 +18,7 @@ linksRoute.get(
   '/:linkId/audience',
   authGuard,
   permissionLinksControl,
-  getLinkAudienceHandler,
+  getLinkAudiencePageHandler,
 );
 linksRoute.delete(
   '/:linkId',

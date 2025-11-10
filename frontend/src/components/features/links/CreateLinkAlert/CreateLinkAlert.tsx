@@ -10,14 +10,35 @@ import PrimaryButton from '../../../shared/Button/PrimaryButton';
 
 import CreateLinkForm from '../CreateLinkForm/CreateLinkForm';
 import { Plus } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 export default function CreateLinkAlert() {
+  const [triggerText, setTriggerText] = useState('Create Short Link');
+
+  function chooseTextVariant() {
+    if (window.innerWidth >= 640) {
+      setTriggerText('Create Short Link');
+    } else {
+      setTriggerText('Create');
+    }
+  }
+  useEffect(() => {
+    chooseTextVariant();
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('resize', chooseTextVariant);
+    return () => {
+      window.removeEventListener('resize', chooseTextVariant);
+    };
+  }, []);
+
   return (
     <AlertRoot
       alertTrigger={
         <PrimaryButton className={`${styles.createLinkButton}`}>
           <Plus className={styles.plus} />
-          Create Short Link
+          <span>{triggerText}</span>
         </PrimaryButton>
       }
     >

@@ -1,7 +1,3 @@
-.formField {
-  width: 400px !important;
-}
-
 .submitButton,
 .submitButton:hover {
   height: 40px;
@@ -14,7 +10,9 @@
   cursor: not-allowed;
   background-color: rgba(var(--primary-color), 0.7) !important;
 }
-
+.formField {
+  background-color: var(--input-color);
+}
 .error {
   color: rgb(var(--color-alert));
   animation: 0.5s appear ease;

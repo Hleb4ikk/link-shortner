@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import linksReducer from './slices/linksSlice';
-import paginationReducer from './slices/paginationSlice';
+import linksDetailsReducer from './slices/linksDetailsSlice';
 const store = configureStore({
   reducer: {
     links: linksReducer,
-    pagination: paginationReducer,
+    linksDetails: linksDetailsReducer,
   },
 });
 

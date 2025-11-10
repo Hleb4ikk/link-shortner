@@ -1,3 +1,4 @@
+import { appConfig } from '../../../configuration/appConfig';
 import {
   CreateLinkResponse,
   DeleteLinkResponse,
@@ -8,7 +9,7 @@ const createUserLink = async (
   url: string,
   title?: string,
 ): Promise<CreateLinkResponse> => {
-  const response = await fetch('http://localhost:8080/links', {
+  const response = await fetch(`${appConfig.serverUrl}/links`, {
     headers: {
       'Content-Type': 'application/json',
     },
@@ -37,7 +38,7 @@ const getLinksPage = async (
   }
 
   const response = await fetch(
-    `http://localhost:8080/links?${searchParams.toString()}`,
+    `${appConfig.serverUrl}/links?${searchParams.toString()}`,
     {
       headers: {
         'Content-Type': 'application/json',
@@ -49,11 +50,13 @@ const getLinksPage = async (
   );
 
   const data: GetLinksResponse = await response.json();
+  console.log(data);
+
   return data;
 };
 
 const deleteUserLink = async (id: string): Promise<DeleteLinkResponse> => {
-  const response = await fetch(`http://localhost:8080/links/${id}`, {
+  const response = await fetch(`${appConfig.serverUrl}/links/${id}`, {
     headers: {
       'Content-Type': 'application/json',
     },
@@ -63,4 +66,5 @@ const deleteUserLink = async (id: string): Promise<DeleteLinkResponse> => {
   const data: DeleteLinkResponse = await response.json();
   return data;
 };
+
 export { createUserLink, getLinksPage, deleteUserLink };
