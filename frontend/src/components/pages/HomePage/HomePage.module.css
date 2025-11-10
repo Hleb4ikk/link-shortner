@@ -46,6 +46,7 @@
 .shortenInput {
   padding: 25px 12px !important;
   font-size: 0.875rem;
+  background-color: var(--input-color);
 }
 .shortenContainer {
   display: flex;

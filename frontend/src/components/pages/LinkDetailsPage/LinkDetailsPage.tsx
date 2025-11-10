@@ -12,7 +12,7 @@ import {
   setCurrentPage,
 } from '../../../app/storage/slices/linksDetailsSlice';
 import SecondaryButton from '../../shared/Button/SecondaryButton';
-import { Pencil, Trash2 } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 import { deleteLink } from '../../../app/storage/slices/linksSlice';
 import ErrorPage from '../ErrorPage/ErrorPage';
 import {
@@ -77,9 +77,6 @@ export default function LinksDetailsPage() {
             </p>
           </div>
           <div className={styles.actions}>
-            <SecondaryButton className={styles.action}>
-              Edit <Pencil size={16} />
-            </SecondaryButton>
             <SecondaryButton
               className={`${styles.action} ${styles.squareAction} ${styles.trash}`}
               onClick={() => {
