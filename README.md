@@ -127,7 +127,7 @@ cd link-shortner
 ### 2. Install dependencies
 
 ```bash
-npm --workspace backend install && npm --workspace frontend install
+npm install
 ```
 
 For production also:
