@@ -44,10 +44,10 @@ body {
   --text-color-4: #f3f3f3;
   --input-color: #ececec;
   --placeholder-color: #909090;
-  --card-color: #e1e1e1;
+  --card-color: #f1f1f1;
   --hovered-button-color: #e1e1e1;
   --hovered-menu-color: #f5f5f5;
-  --hovered-card-color: #f1f1f1;
+  --hovered-card-color: #e1e1e1;
   --border-color: #e9ebed;
   --primary-color: 100, 26, 229;
   --skeleton-1: #f0f0f0;
