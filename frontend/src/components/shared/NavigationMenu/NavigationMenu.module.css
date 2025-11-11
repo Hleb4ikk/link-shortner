@@ -1,0 +1,20 @@
+.navigation {
+  color: var(--text-color-1);
+  font-size: 1rem;
+  display: flex;
+  gap: 16px;
+  font-weight: 500;
+  height: 100%;
+}
+
+.navigationItem {
+  display: flex;
+  align-items: center;
+  color: inherit;
+  padding: 0 14px;
+  height: 100%;
+}
+.navigationItem:hover {
+  background-color: var(--hovered-menu-color);
+  border-radius: 5px;
+}

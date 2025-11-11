@@ -1,0 +1,43 @@
+.linkInfoContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.fullUrl {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.shortLink {
+  color: rgb(var(--primary-color));
+  border-radius: 5px;
+  padding: 8.5px 10px;
+  background-color: rgba(var(--primary-color), 0.2);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.copyButton {
+  padding: 10px;
+  width: 36px;
+  height: 36px;
+}
+.copyButton:hover {
+  background-color: var(--hovered-button-color);
+}
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.clicksContainer {
+  text-align: center;
+}
+.actionButton {
+  padding: 10px;
+  height: 36px;
+  width: 36px;
+}
+.actionButton:hover {
+  background-color: var(--hovered-button-color);
+}

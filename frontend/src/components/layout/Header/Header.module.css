@@ -1,0 +1,32 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1440px;
+  padding: 7px 20px;
+  margin: 0 auto;
+  height: 50px;
+}
+.headerContainer {
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+}
+.usersMenu {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  height: 100%;
+}
+
+.dropDownElement {
+  display: flex;
+  align-items: center;
+  justify-content: start !important;
+  height: 40px !important;
+  padding: 0 14px;
+  white-space: nowrap;
+  gap: 10px;
+}
+.logout {
+  color: rgb(var(--color-alert)) !important;
+}

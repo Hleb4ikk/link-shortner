@@ -1,0 +1,18 @@
+# dependencies
+/node_modules
+/frontend/node_modules
+/backend/node_modules
+
+# environment variables
+/frontend/.env
+/backend/.env
+
+# build
+/frontend/dist
+/backend/dist
+
+# production
+/frontend/build
+
+# local variables
+/frontend/.env

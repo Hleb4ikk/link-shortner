@@ -1,0 +1,13 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  height: 36px;
+  gap: 10px;
+}
+.chevron {
+  width: 20px;
+  height: 20px;
+}
+.currentPage {
+  border: 1px solid var(--border-color);
+}

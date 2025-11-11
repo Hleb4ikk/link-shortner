@@ -1,0 +1,40 @@
+.section {
+  margin: 0 auto;
+  padding: 0 20px;
+  padding-top: 20px;
+  max-width: 1440px;
+  color: var(--text-color-1);
+}
+
+.section:last-child {
+  padding-bottom: 20px;
+}
+.managementSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.plus {
+  width: 18px;
+}
+
+.sectionHeader {
+  font-weight: 600;
+}
+.sectionDescription {
+  color: var(--text-color-2);
+}
+.sectionDescriptionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.linksSection {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.paginationSection {
+  display: flex;
+  justify-content: center;
+}

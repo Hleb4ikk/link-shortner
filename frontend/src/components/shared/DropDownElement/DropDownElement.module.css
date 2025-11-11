@@ -1,0 +1,23 @@
+.container {
+  position: relative;
+}
+.content {
+  position: absolute;
+  right: 0;
+  padding: 10px;
+  background-color: var(--color-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.triggerButton {
+  height: 36px;
+  width: 36px;
+  padding: 0;
+}
+.triggerButton,
+.triggerButton:hover {
+  background-color: transparent;
+}

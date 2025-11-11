@@ -1,0 +1,59 @@
+.section {
+  margin: 0 auto;
+  padding: 0 20px;
+  padding-top: 20px;
+  max-width: 1440px;
+  color: var(--text-color-1);
+}
+
+.sectionHeader {
+  font-weight: 600;
+}
+.sectionDescription {
+  color: var(--text-color-2);
+}
+.sectionDescriptionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.linksDetailsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.managementSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.paginationSection {
+  display: flex;
+  justify-content: center;
+}
+.actions {
+  display: flex;
+  gap: 15px;
+  height: 40px;
+}
+.action {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  gap: 7px;
+}
+.squareAction {
+  padding: 10px !important;
+  height: 40px;
+  width: 40px;
+}
+
+.trash {
+  background-color: rgba(var(--color-alert), 0.2);
+  border: 1px solid rgb(var(--color-alert)) !important;
+  color: rgba(var(--color-alert));
+}
+.trash:hover {
+  background-color: rgba(var(--color-alert), 0.4);
+}

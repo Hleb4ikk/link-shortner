@@ -1,0 +1,1 @@
+ALTER TABLE "audience" ALTER COLUMN "ip" SET DATA TYPE varchar(45);

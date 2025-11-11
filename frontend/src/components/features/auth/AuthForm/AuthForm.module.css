@@ -1,0 +1,44 @@
+.submitButton,
+.submitButton:hover {
+  height: 40px;
+  width: 100%;
+  gap: 10px;
+}
+
+.loadingSubmitButton,
+.loadingSubmitButton:hover {
+  cursor: not-allowed;
+  background-color: rgba(var(--primary-color), 0.7) !important;
+}
+.formField {
+  background-color: var(--input-color);
+  color: var(--text-color-1);
+}
+.error {
+  color: rgb(var(--color-alert));
+  animation: 0.5s appear ease;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.loader {
+  width: 20px;
+  height: 20px;
+  animation: 2s spin infinite linear;
+}
+.successSubmitResult {
+  border: solid 1px rgb(var(--color-success)) !important;
+  background-color: rgba(var(--color-success), 0.2) !important;
+  color: rgb(var(--color-success)) !important;
+}
+.failedSubmitResult {
+  border: solid 1px rgb(var(--color-alert)) !important;
+  background-color: rgba(var(--color-alert), 0.2) !important;
+  color: rgb(var(--color-alert)) !important;
+}
