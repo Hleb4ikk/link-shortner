@@ -158,7 +158,7 @@ npm run start:prod
 
 Create the following files at the project root.
 
-### Frontend `.env`
+### Backend `.env`
 
 ```env
 # Server options
@@ -192,7 +192,7 @@ COOKIE_MAX_AGE="86400000" # 24h
 COOKIE_PATH="/"
 ```
 
-### Backend `.env`
+### Frontend `.env`
 
 ```env
 # Server options
