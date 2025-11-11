@@ -51,7 +51,7 @@ body {
 
   --card-color: #1f1d23;
 
-  --input-color: #ffffff;
+  --input-color: #ececec;
 
   --placeholder-color: #909090;
 
@@ -84,6 +84,8 @@ body {
     --input-color: #1a1a1a;
 
     --placeholder-color: #777777;
+
+    --card-color: #1f1f1f;
 
     --hovered-button-color: #2a2a2a;
     --hovered-menu-color: #2e2e2e;

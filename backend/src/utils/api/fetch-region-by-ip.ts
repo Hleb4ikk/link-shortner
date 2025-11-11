@@ -1,10 +1,11 @@
 import { appConfig } from 'configuration/appConfig';
+import { geoApiHost } from 'constants/geo-api';
 import { logError } from 'logger';
 import { IpResponseData } from 'types/IpResponseData';
 
 export const fetchRegionByIp = async (ip: string) => {
   const response = await fetch(
-    `https://geo.ipify.org/api/v2/country?apiKey=${appConfig.apiGeolocationKey}&ipAddress=${ip}`,
+    `${geoApiHost}/api/v2/country?apiKey=${appConfig.apiGeolocationKey}&ipAddress=${ip}`,
   );
 
   if (!response.ok) {
