@@ -35,39 +35,6 @@ body {
   --shimmer-animation: shimmer 3s linear infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg: #121212;
-
-    --skeleton-1: #2a2a2a;
-    --skeleton-2: #3a3a3a;
-
-    --color-alert: 255, 80, 80; /* мягкий красный */
-    --color-success: 80, 200, 120; /* светло-зелёный */
-
-    --color-section: #1e1e1e;
-
-    --text-color-1: #f3f3f3;
-    --text-color-2: #c0c6d0;
-    --text-color-3: #e0e0e0;
-    --text-color-4: #f3f3f3;
-
-    --input-color: #1a1a1a;
-
-    --placeholder-color: #777777;
-
-    --card-color: #1f1f1f;
-
-    --hovered-button-color: #2a2a2a;
-    --hovered-menu-color: #2e2e2e;
-    --hovered-card-color: #262626;
-
-    --border-color: #3a3a3a;
-
-    --primary-color: 140, 100, 255; /* фиолетово-синий акцент */
-  }
-}
-
 :root[data-theme='light'] {
   --color-bg: #fff;
   --color-section: #fafafa;
