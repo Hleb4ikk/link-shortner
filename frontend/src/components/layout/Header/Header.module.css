@@ -17,13 +17,7 @@
   align-items: center;
   height: 100%;
 }
-.themeSwitcher {
-  width: 36px !important;
-  padding: 0px 0px !important;
-}
-.icon {
-  width: 26px;
-}
+
 .dropDownElement {
   display: flex;
   align-items: center;

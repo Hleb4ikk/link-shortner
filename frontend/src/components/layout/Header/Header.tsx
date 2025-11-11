@@ -4,8 +4,6 @@ import {
 } from '../../shared/NavigationMenu/NavigationMenu';
 import styles from './Header.module.css';
 import Logo from '../../shared/Logo/Logo';
-import { Sun } from 'lucide-react';
-import Button from '../../shared/Button/Button';
 import AuthAlert from '../../features/auth/AuthAlert/AuthAlert';
 import Avatar from '../../shared/Avatar/Avatar';
 import {
@@ -17,6 +15,7 @@ import { useUser } from '../../features/user/UserProvider';
 import AvatarSkeleton from '../../skeletons/AvatarSkeleton/AvatarSkeleton';
 import LogOutButton from '../../features/auth/LogOutButton/LogOutButton';
 import ChangePasswordAlert from '../../features/auth/ChangePasswordAlert/ChangePasswordAlert';
+import ThemeSwitcher from '../../shared/ThemeSwitcher/ThemeSwitcher';
 
 const menuItems = [
   {
@@ -50,9 +49,7 @@ export default function Header() {
               ),
             )}
           </NavigationMenu>
-          <Button className={styles.themeSwitcher}>
-            <Sun className={styles.icon} />
-          </Button>
+          <ThemeSwitcher />
 
           {!user && isLoading && <AvatarSkeleton />}
           {!user && !isLoading && <AuthAlert />}
