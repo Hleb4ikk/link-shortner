@@ -5,6 +5,7 @@
 .search {
   padding-left: 38px;
   background-color: var(--input-color);
+  color: var(--text-color-1);
 }
 .searchIcon {
   position: relative;

@@ -4,17 +4,19 @@ This project is a smart URL shortening service designed to simplify long links w
 
 ## ✨ Features
 
-# ADD FEATURES
-
-- Geolocation getting using external API.
+- Shortening links to **base58** format.
+- Geolocation getting by external API.
 - **External geolocation api provider:** [geo.ipify.org](https://geo.ipify.org) (authenticated with `API_GEOLOCATION_KEY`).
 - User preferences management (stored in Supabase/Postgres).
-- Automatic **httpOnly** cookie **Token** assignment on first request.
+- JWT Cookie authorization **Token**. Token is valid for 24 hours.
 
 ## 🚀 Tech Stack
 
 - Node.js (LTS)
 - Express.js
+- Redux.js/toolkit
+- Zod Validation
+- React Hook Form
 - TypeScript
 - Supabase (application data storage)
 - **geo.ipify.org** (geolocation api provider)
@@ -119,7 +121,7 @@ Data views like ts type. Comments views show db structure.
 
 ```bash
 git clone https://gitlab.12devs.com/training/internship/2025-interns/gnunko/link-shortner
-cd currency-converter
+cd link-shortner
 ```
 
 ### 2. Install dependencies

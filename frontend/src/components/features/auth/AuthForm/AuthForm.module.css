@@ -12,6 +12,7 @@
 }
 .formField {
   background-color: var(--input-color);
+  color: var(--text-color-1);
 }
 .error {
   color: rgb(var(--color-alert));
