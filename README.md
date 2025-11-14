@@ -140,7 +140,13 @@ npm -g i serve
 
 See examples below for: `.env`. Environment files must be in frontend and backend folders.
 
-### 4. Start the app
+### 4. Push database schema
+
+```bash
+npx --workspace backend drizzle-kit push
+```
+
+### 5. Start the app
 
 ```bash
 npm run dev
